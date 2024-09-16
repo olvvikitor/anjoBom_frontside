@@ -1,0 +1,38 @@
+.container-down-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #135F99;
+    padding: 40px 0;
+    margin-top: 80px;
+    /* Ajuste conforme a altura real da sua navbar */
+}
+
+.container-down-header h1 {
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 50px;
+    font-style: normal;
+    font-weight: lighter;
+}
+
+.container-down-header span {
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 767px) {
+    .container-down-header {
+        margin-top: 58px !important;
+    }
+
+    .container-down-header h1 {
+        font-size: 30px;
+       
+    }
+    
+}

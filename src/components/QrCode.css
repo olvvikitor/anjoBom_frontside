@@ -1,0 +1,20 @@
+.container-qr-code{
+    width: 100% !important;
+    background-color: #C8E9FF;
+    border-radius: 16px !important;
+}
+
+.qrCodeContent{
+    margin-top: 35px;
+    padding: 30px !important;
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.qrCodeText p{
+    text-align: center;
+    color: #085191;
+    font-size: large;
+    font-weight: bold;
+}

@@ -1,0 +1,85 @@
+/* Desktop Navbar */
+.main-navbar-desktop {
+  background-color: #10324B !important;
+  padding-top: 15px;
+  margin: 15px;
+  width: 100%;
+  position: fixed;
+  top: 0; /* Adicione esta linha se não estiver */
+  height: 80px; /* Defina uma altura para a navbar */
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+
+.main-navbar-scrolled {
+  background-color: #10324B !important; /* Cor da navbar ao rolar */
+  box-shadow: 0 2px 4px rgba(8, 81, 145, 0.5) !important;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.main-navbar-logo {
+  margin-bottom: 12px !important;
+}
+
+
+
+.main-navbar-item {
+  color: #fff !important;
+  font-weight: bold !important;
+}
+
+/* Mobile Navbar */
+.main-navbar-mobile {
+  display: none !important;
+  border: none !important;
+  margin: 0 !important;
+  transition: background-color 0.3s ease;
+}
+
+@media only screen and (max-width: 767px) {
+  .main-navbar-mobile {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed !important;
+    top: 0 !important;
+    width: 100%;
+    background: #10324B !important;
+    z-index: 1000; /* Defina um valor alto para garantir que fique sobre outros elementos */
+  }
+  
+
+  .main-navbar-scrolled {
+    background-color: #10324B !important; /* Cor ao rolar no mobile */
+  }
+
+  .main-navbar-desktop {
+    display: none !important;
+  }
+
+  .main-navbar-toggle-button {
+    background-color: transparent !important;
+    border: none !important;
+  }
+}
+
+/* Sidebar */
+.main-navbar-sidebar {
+  z-index: 200;
+  background-color: #10324B !important;
+  color: #fff !important;
+}
+
+.main-navbar-toggle-button {
+  background-color: #10324B !important;
+  color: #fff !important;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.main-navbar-toggle-button:hover {
+  background-color: #063a7a !important;
+}
+
+.main-navbar-toggle-button:active {
+  transform: scale(0.95);
+}

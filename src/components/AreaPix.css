@@ -1,0 +1,51 @@
+.content {
+    max-width: 500px !;
+    margin: 0 auto;
+}
+
+.gridColum01 {
+    background-color: #fff;
+    border-radius: 25px;
+    text-align: center;
+    color: #085191;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.segment-qrCode {
+    margin: 0 auto;
+}
+
+.segment-qrCode p{
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+.no-segment-no-image {
+    width: 80%;
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+
+}
+
+.no-segment-no-image h2 {
+    font-family: 'barrio', cursive;
+    color: #fff;
+    font-size: xx-large;
+    text-align: center;
+    margin-bottom: 40px;
+}   
+
+.no-segment-no-image p {
+    font-family: "Raleway", sans-serif;
+    color: #fff;
+    text-align: justify;
+    font-size: medium;
+    font-weight: bold;
+    line-height: 1.5;
+    margin: 0;
+    padding: 0;
+
+}

@@ -1,0 +1,60 @@
+.pontos-grid {
+    margin: 0.5rem 0px !important;}
+
+.pontos-column {
+    margin-bottom: 20px;
+}
+
+.pontos-segment {
+    background-color: #ffffff !important;
+    border: 5px solid #005C98 !important;
+    padding: 15px;
+    margin-top: 30px !important;
+    margin-bottom: 25px !important;
+    margin-left: 20px !important;
+    margin-right: 20px !important;
+    border-radius: 9px !important;
+}
+
+.pontos-text {
+    padding-right: 10px;
+}
+
+.pontos-text h4{
+    color: #063a7a;
+    font-weight: bold;
+    font-size: xx-large;
+}
+
+.pontos-text p{
+    color: #063a7a;
+    font-weight: 100;
+}
+.pontos-image-p{
+    text-decoration: none;
+    color: #063a7a;
+}
+
+
+.pontos-image {
+    text-align: center;
+    padding-left: 10px;
+}
+
+.pontos-img {
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+
+
+@media only screen and (max-width: 768px) and (max-width: 991px) {
+
+    .pontos-text h4{
+        text-align: center;
+        
+    }
+    
+
+
+}
