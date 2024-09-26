@@ -7,7 +7,8 @@ import Initial from './router/Initial.jsx'
 import Sobre from './router/Sobre.jsx'
 import AcoesRealizadas from './router/AcoesRealizadas.jsx'
 import PontosColeta from './router/PontosColeta.jsx'
-
+import FormDoador from './router/FormDoador.jsx'
+import AgendaDoacao from './router/AgendaDoacao.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -28,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: 'pontosColeta',
         element: <PontosColeta/>,
+      },
+      {
+        path: 'agendaDoacao',
+        element: <AgendaDoacao/>
+      },
+      {
+        path: 'formDoador',
+        element: <FormDoador/>,
       }
     ]
   }

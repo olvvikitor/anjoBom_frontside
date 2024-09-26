@@ -76,23 +76,11 @@ const Initial = () => {
                         <Link to="/">
                             <Menu.Item className="main-navbar-item" name="Home" />
                         </Link>
-                        <Link to="/">
-                            <Menu.Item className="main-navbar-item" name="Doar" />
+                        <Link to="/formDoador">
+                            <Menu.Item className="main-navbar-item" name="Doação" />
                         </Link>
                         <Link to="/sobre">
                             <Menu.Item className="main-navbar-item" name="Sobre" />
-                        </Link>
-                        <Link to="/">
-                            <Dropdown item text="Ajude-nos" className="main-navbar-item">
-                                <Dropdown.Menu>
-                                    <Link to="/sobre">
-                                        <Dropdown.Item>Torna-se voluntário</Dropdown.Item>
-                                    </Link>
-                                    <Link to="/sobre">
-                                        <Dropdown.Item>Torna-se doador</Dropdown.Item>
-                                    </Link>
-                                </Dropdown.Menu>
-                            </Dropdown>
                         </Link>
                     </Menu.Menu>
                 </Container>
@@ -120,25 +108,20 @@ const Initial = () => {
                 className="sidebar"
             >
                 <Image src={logo} size="tiny" />
-                
+
                 <Link to="/">
                     <Menu.Item as="a" onClick={() => setVisible(false)}>
                         Home
                     </Menu.Item>
                 </Link>
+                <Link to="/formDoador">
+                    <Menu.Item as="a" onClick={() => setVisible(false)}>
+                        Doação
+                    </Menu.Item>
+                </Link>
                 <Link to="/sobre">
                     <Menu.Item as="a" onClick={() => setVisible(false)}>
                         Sobre
-                    </Menu.Item>
-                </Link>
-                <Link to="/sobre">
-                    <Menu.Item as="a" onClick={() => setVisible(false)}>
-                        Doar
-                    </Menu.Item>
-                </Link>
-                <Link to="/sobre">
-                    <Menu.Item as="a" onClick={() => setVisible(false)}>
-                        Ajude-nos
                     </Menu.Item>
                 </Link>
             </Sidebar>
@@ -214,7 +197,9 @@ const Initial = () => {
                 </Card>
             </CardGroup>
             <Container textAlign="center" className="container-button">
-                <Button className="btn-action">Agende sua retirada</Button>
+                <Link to="agendaDoacao">
+                    <Button className="btn-action">Agende sua retirada</Button>
+                </Link>
                 <Link to="pontosColeta">
                     <Button className="btn-action">Ver pontos de coleta</Button>
                 </Link>
