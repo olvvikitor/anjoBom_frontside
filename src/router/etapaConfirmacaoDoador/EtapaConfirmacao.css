@@ -1,4 +1,4 @@
-.container-agendaDoacao {
+.container-etapaConfirmacao {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -12,7 +12,7 @@
     padding-bottom: 30px;
 }
 
-.icon-background-agendaDoacao {
+.icon-background-etapaConfirmacao {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -20,8 +20,7 @@
     border-radius: 50%; 
     width: 70px; 
     height: 70px; 
-    margin-bottom: 20px; 
-    margin-top: 30px;
+    margin-top: 10px;
 }
 
 .custom-lock-icon {
@@ -29,7 +28,7 @@
     font-size: 36px; 
 }
 
-.container-agendaDoacao-internal {
+.container-etapaConfirmacao-internal {
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -37,28 +36,31 @@
     width: 100%;
 }
 
-.p-info-number{
-    margin-bottom: 0px !important;
-    font-weight: bold;
+.p-info-envio-sms{
+    color: #055019;
+    font-weight: 500;
 }
 
-.btn-verificar-agendaDoacao {
+.btn-verificar-etapaConfirmacao {
     background-color: #135F99 !important;
     color: #fff !important;
     display: block !important;
     justify-content: center !important;
     margin: 20px 0px!important; 
 }
-.container-agendaDoacao-internal h3{
+.container-etapaConfirmacao-internal h3{
     color: #135F99;
+    font-size: x-large;
+    margin-top: 10px;
+    margin-bottom: 0px;
 }
-.container-agendaDoacao-internal span {
+.container-etapaConfirmacao-internal span {
     color: #135F99;
     margin-top: 20px;
     cursor: pointer;
     
 }
-.container-agendaDoacao-internal span:hover{
+.container-etapaConfirmacao-internal span:hover{
     text-decoration: underline;
 
 }
@@ -66,23 +68,21 @@
 
 /* Responsividade para tablet */
 @media (max-width: 768px) {
-    .container-agendaDoacao {
-        width: 90%; /* Ajuste para ocupar a maior parte da tela sem ultrapassar os limites */
-        height: auto; /* Deixa a altura automática para ajustar o conteúdo */
-        margin: 50px auto; /* Reduz a margem */
+    .container-etapaConfirmacao {
+        width: 90%;
+        height: auto; 
+        margin: 50px auto; 
     }
-
-   
 
     
 }
 
 /* Responsividade para mobile */
 @media (max-width: 480px) {
-    .container-agendaDoacao {
-        width: 100%; /* Ocupar 100% da largura */
+    .container-etapaConfirmacao {
+        width: 100%;
         height: auto;
-        margin: 30px auto; /* Reduz mais a margem */
+        margin: 30px auto; 
     }
 
 

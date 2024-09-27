@@ -9,6 +9,8 @@ import AcoesRealizadas from './router/acoesRealizadas/AcoesRealizadas.jsx'
 import PontosColeta from './router/pontosColeta/PontosColeta.jsx'
 import FormDoador from './router/formDoador/FormDoador.jsx'
 import AgendaDoacao from './router/agendaDoacao/AgendaDoacao.jsx'
+import EtapaConfirmacao from './router/etapaConfirmacaoDoador/EtapaConfirmacao.jsx'
+import FormEnderecoDoador from './router/formEnderecoDoador/FormEnderecoDoador.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -33,6 +35,14 @@ const router = createBrowserRouter([
       {
         path: 'agendaDoacao',
         element: <AgendaDoacao/>
+      },
+      {
+        path: 'etapaConfirmacaoDoador',
+        element: <EtapaConfirmacao/>
+      },
+      {
+        path: 'formEnderecoDoador',
+        element: <FormEnderecoDoador/>
       },
       {
         path: 'formDoador',
