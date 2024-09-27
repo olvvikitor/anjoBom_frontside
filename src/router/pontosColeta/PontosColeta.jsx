@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid, GridColumn, Image, Segment } from 'semantic-ui-react';
-import Header from '../components/Header';
-import maps from "../assets/maps.png";
+import Header from '../../components/Header';
+import maps from "../../assets/maps.png";
 import './PontosColeta.css'; // Importa o arquivo CSS externo
 
 const PontosColeta = () => {

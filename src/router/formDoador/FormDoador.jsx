@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive';
 import axios from "axios";
 import Swal from 'sweetalert2'
+import * as EmailValidator from 'email-validator';
+
 
 import {
     Container,
@@ -29,7 +31,8 @@ import {
 } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
 import "./FormDoador.css"
-import HeaderT from "../components/Header";
+import HeaderT from "../../components/Header";
+import { Link } from "react-router-dom";
 
 
 function FormDoador() {
@@ -39,6 +42,7 @@ function FormDoador() {
     const [stepFormAndress, setStepFormAndress] = useState(false);
     const [stepVerification, setStepVerification] = useState(false);
     const [msgCodigo, setMsgCodigo] = useState(false);
+    const [recebidoCodigo, setRecebidoCodigo] = useState('');
 
 
 
@@ -123,22 +127,23 @@ function FormDoador() {
 
 
     const formatPhone = (phone) => {
+        const cleaned = ('' + phone).replace(/\D/g, ''); // Remove todos os caracteres não numéricos
 
-        const cleaned = ('' + phone).replace(/\D/g, '');
-
-        const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+        // Primeiro caso: para números no formato (99) 9 9999-9999
+        const match = cleaned.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
         if (match) {
-            return `(${match[1]}) ${match[2]}-${match[3]}`;
+            return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
         }
 
-
-        const matchTenDigits = cleaned.match(/^(\d{2})(\d{4})(\d{4})$/); // Para números no formato (99) 9999-9999
+        // Segundo caso: para números no formato (99) 9999-9999
+        const matchTenDigits = cleaned.match(/^(\d{2})(\d{4})(\d{4})$/);
         if (matchTenDigits) {
             return `(${matchTenDigits[1]}) ${matchTenDigits[2]}-${matchTenDigits[3]}`;
         }
 
-        return cleaned;
+        return cleaned; // Retorna o número sem formatação, caso não seja válido
     };
+
 
     useEffect(() => {
         console.log("Aqui são os dados atualizados", todosDados);
@@ -213,8 +218,8 @@ function FormDoador() {
                     }
                     break;
                 case "phone":
-                    if (value.length > 11) {
-                        newErros.phone = "Máximo 11 caracteres";
+                    if (value.length > 15) {
+                        newErros.phone = "Máximo 15 caracteres";
                     } else {
                         newErros.phone = "";
                     }
@@ -296,7 +301,7 @@ function FormDoador() {
     };
 
 
-
+    
 
     function voltarParaContato() {
         setStepFormContact(true);
@@ -320,6 +325,7 @@ function FormDoador() {
             newErros.phone = "Telefone é obrigatório";
             valid = false;
         }
+
         if (!formValues.email) {
             newErros.email = "E-mail é obrigatório";
             valid = false;
@@ -327,6 +333,14 @@ function FormDoador() {
         if (!formValues.motivation) {
             newErros.motivation = "Motivação é obrigatório";
             valid = false;
+        }
+
+        if (formValues.email) {
+            const isValid = EmailValidator.validate(formValues.email);
+            if (!isValid) {
+                newErros.email = "Email é inválido";
+                valid = false;
+            }
         }
         // Se válido, vai para o endereço
         if (valid) {
@@ -393,9 +407,20 @@ function FormDoador() {
 
     }
 
-    function enviarCodigo() {
+    async function enviarCodigo() {
 
         setMsgCodigo(true)
+        try {
+            const response = await axios.get('http://localhost:5000/person/code/ ')
+            console.log("resposta ", response.data);
+            setRecebidoCodigo(response.data);
+
+            console.log("novo ", recebidoCodigo);
+
+
+        } catch (error) {
+
+        }
 
     }
 
@@ -410,6 +435,22 @@ function FormDoador() {
             valid = false;
         }
 
+        if (recebidoCodigo === codigo.codigoVerificacao) {
+            valid = true;
+            console.log("entrou no valid TRUE")
+        } else {
+            valid = false;
+            Swal.fire({
+                title: "Error!",
+                text: "O código não é compatível!",
+                icon: "error",
+                customClass: {
+                    confirmButton: 'swal2-confirm-custom'
+                }
+
+            });
+        }
+
         if (valid) {
             try {
                 // Envia os dados para o backend via POST usando Axios
@@ -418,23 +459,23 @@ function FormDoador() {
                         'Content-Type': 'application/json'
                     }
                 });
-        
+
                 // Verifica se a resposta foi bem-sucedida
                 if (response.status === 200) {
                 }
-                
+
                 // Exibe o SweetAlert para sucesso
                 Swal.fire({
                     title: "Parabéns!",
                     text: "Você agora é um doador!",
                     icon: "success",
                     customClass: {
-                        confirmButton: 'swal2-confirm-custom' 
+                        confirmButton: 'swal2-confirm-custom'
                     }
-                   
+
                 });
                 console.log('Resposta do servidor:', response.data);
-        
+
                 // Limpa o formulário após o envio
                 setFormValues({
                     name: '',
@@ -463,7 +504,7 @@ function FormDoador() {
                         customClass: {
                             confirmButton: 'swal2-confirm-custom'
                         }
-                       
+
                     });
                 } else {
                     Swal.fire({
@@ -471,15 +512,15 @@ function FormDoador() {
                         text: "Erro ao enviar dados para o servidor.",
                         icon: "error",
                         customClass: {
-                            confirmButton: 'swal2-confirm-custom' 
+                            confirmButton: 'swal2-confirm-custom'
                         }
-                       
+
                     });
                 }
                 console.error('Erro ao enviar os dados:', error);
             }
         }
-        
+
 
 
         // Atualiza os erros
@@ -493,11 +534,11 @@ function FormDoador() {
 
     return (
         <>
-            
+
             <HeaderT title1={"Torne-se"} title2={"Doador"} />
 
             <div className="container-formulario">
-               
+
                 {/* Step formulario Contato*/}
 
 
@@ -581,7 +622,7 @@ function FormDoador() {
                                             label={<label className="blue-label">Telefone</label>}
                                             placeholder="Digite seu telefone"
                                             name="phone"
-                                            maxLength={11}
+                                            maxLength={15}
                                             value={formValues.phone}
                                             onChange={handleChange}
                                         />
@@ -613,7 +654,12 @@ function FormDoador() {
                             </Form>
                         </main>
 
-                        <footer className="wizard-footer-contact">
+                        <footer className="wizard-footer">
+                            <Button type='submit' className="btn-internal-forms-back">
+                                <Link to='/agendaDoacao'>
+                                    voltar
+                                </Link>
+                            </Button>
                             <Button type='submit' className="btn-internal-forms-continous" onClick={irParaEndereco}>Continuar</Button>
                         </footer>
                     </div>

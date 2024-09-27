@@ -3,12 +3,12 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import './index.css'
-import Initial from './router/Initial.jsx'
-import Sobre from './router/Sobre.jsx'
-import AcoesRealizadas from './router/AcoesRealizadas.jsx'
-import PontosColeta from './router/PontosColeta.jsx'
-import FormDoador from './router/FormDoador.jsx'
-import AgendaDoacao from './router/AgendaDoacao.jsx'
+import Initial from './router/initial/Initial.jsx'
+import Sobre from './router/sobre/Sobre.jsx'
+import AcoesRealizadas from './router/acoesRealizadas/AcoesRealizadas.jsx'
+import PontosColeta from './router/pontosColeta/PontosColeta.jsx'
+import FormDoador from './router/formDoador/FormDoador.jsx'
+import AgendaDoacao from './router/agendaDoacao/AgendaDoacao.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
