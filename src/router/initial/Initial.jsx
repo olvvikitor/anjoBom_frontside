@@ -30,6 +30,7 @@ import "../initial/initial.css";
 import AreaPix from "../../components/AreaPix";
 import QrCode from "../../components/QrCode";
 import NoQrCode from "../../components/NoQrCode";
+import NoQrCodeTablet from "../../components/NoQrCodeTablet";
 import TwoGridLayout from "../../components/TwoGridLayout";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
@@ -37,8 +38,6 @@ import { useMediaQuery } from 'react-responsive';
 const Initial = () => {
     const [visible, setVisible] = useState(false);
     const [scrolled, setScrolled] = useState(true);
-
-
 
     const toggleSidebar = () => {
         setVisible(!visible);
@@ -135,9 +134,15 @@ const Initial = () => {
                     </div>
                 )}
 
-                {(isMobile || isTablet) && (
+                {(isMobile) && (
                     <div className="overlay-content">
                         <NoQrCode />
+                    </div>
+                )}
+
+                {(isTablet) && (
+                    <div className="overlay-content">
+                        <NoQrCodeTablet />
                     </div>
                 )}
 

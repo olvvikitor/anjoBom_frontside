@@ -77,7 +77,9 @@ function FormEnderecoDoador() {
                         Editar
                     </Button>
                     <Button type="submit" className="btn-confirmar-enderecoDoador">
-                        Confirmar
+                        <Link to="/categoriaDoacao">
+                            Confirmar
+                        </Link>
                     </Button>
                 </div>
 

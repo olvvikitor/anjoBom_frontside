@@ -11,6 +11,7 @@ import FormDoador from './router/formDoador/FormDoador.jsx'
 import AgendaDoacao from './router/agendaDoacao/AgendaDoacao.jsx'
 import EtapaConfirmacao from './router/etapaConfirmacaoDoador/EtapaConfirmacao.jsx'
 import FormEnderecoDoador from './router/formEnderecoDoador/FormEnderecoDoador.jsx'
+import CategoriaDoacao from './router/categoriasDoacao/categoriaDoacao.jsx'
 const router = createBrowserRouter([
   {
     path: '/',
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
       {
         path: 'formEnderecoDoador',
         element: <FormEnderecoDoador/>
+      },
+      {
+        path: 'categoriaDoacao',
+        element: <CategoriaDoacao/>
       },
       {
         path: 'formDoador',

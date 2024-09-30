@@ -1,6 +1,6 @@
 .container-all-acoes-realizadas{
     margin: 0.5rem 0px !important;
-    padding:  4rem !important;
+    padding: 4rem  6rem !important;
 }
 
 .column-all-acoes-realizadas-image{
@@ -30,9 +30,12 @@
     font-weight: 600;
 }
 
-/* Mobile Navbar */
+
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 
+    .container-all-acoes-realizadas{
+        margin: 0px 0px ;
+    }
 
     .column-all-acoes-realizadas-image{
         border-radius:  14px 14px 0px 0px;

@@ -1,20 +1,21 @@
-.container-qr-code{
+.container-qr-code {
     width: 100% !important;
-    background-color: #C8E9FF;
     border-radius: 16px !important;
+    margin: 30px !important;
 }
 
-.qrCodeContent{
-    margin-top: 35px;
-    padding: 30px !important;
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-}
-
-.qrCodeText p{
-    text-align: center;
-    color: #085191;
-    font-size: large;
+.gridColum01-mobile {
+    background-color: #135F99 !important;
+    border-radius: 25px;
+    text-align: left;
+    font-size: x-large;
     font-weight: bold;
+}
+
+
+.container-continuar-btn-radio-group-qrCode{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
 }

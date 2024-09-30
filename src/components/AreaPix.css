@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap');
+
+
+
 .content {
     max-width: 500px !;
     margin: 0 auto;
@@ -6,26 +10,56 @@
 .gridColum01 {
     background-color: #fff;
     border-radius: 25px;
-    text-align: center;
-    color: #085191;
+    text-align: left;
+    color: #135F99;
     font-size: x-large;
     font-weight: bold;
 }
 
-.segment-qrCode {
+.segment-donation {
     margin: 0 auto;
 }
 
-.segment-qrCode p{
+.segment-donation p,
+.segment-donation h4 {
     font-family: "Montserrat", sans-serif;
     font-optical-sizing: auto;
     font-style: normal;
 }
 
+.formField-container-areaPix {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+/* Aplica a fonte Raleway aos labels dos radios */
+.labelNumberPix {
+    font-family: 'Raleway', sans-serif !important;
+    font-size: large !important;
+    font-weight: 400 !important;
+}
+
+
+.container-continuar-btn-radio-group {
+    display: flex;
+    justify-content: end;
+    margin-top: 20px;
+}
+
+.continuar-btn-radio-group {
+    background-color: #135F99 !important;
+    color: #fff !important;
+    padding: 17px 60px !important;
+}
+
+
+
 .no-segment-no-image {
     width: 80%;
     max-width: 500px;
-    padding: 20px;
+    padding: 15px;
     margin: 0 auto;
 
 }
@@ -33,19 +67,23 @@
 .no-segment-no-image h2 {
     font-family: 'barrio', cursive;
     color: #fff;
-    font-size: xx-large;
+    font-size: 45px;
     text-align: center;
-    margin-bottom: 40px;
-}   
+    margin-bottom: 60 px;
+}
 
 .no-segment-no-image p {
     font-family: "Raleway", sans-serif;
     color: #fff;
     text-align: justify;
     font-size: medium;
-    font-weight: bold;
+    font-weight: 500;
     line-height: 1.5;
     margin: 0;
     padding: 0;
 
+}
+
+.no-segment-no-image .p2 {
+    margin-top: 15px;
 }
