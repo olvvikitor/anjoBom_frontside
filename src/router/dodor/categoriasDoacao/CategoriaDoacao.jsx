@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Card, Icon, Segment, Label } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import Header from '../../components/Header';
+import Header from '../../../components/Header';
 import './CategoriaDoacao.css';
 
 

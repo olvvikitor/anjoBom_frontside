@@ -1,8 +1,8 @@
 import React from "react";
 import { Grid, GridRow, GridColumn, Image } from 'semantic-ui-react';
-import people from "../../assets/people.png";
+import people from "../../../assets/people.png";
 import './AcoesRealizadas.css';
-import Header from "../../components/Header";
+import Header from "../../../components/Header";
 
 function AcoesRealizadas() {
     const dadosAcoesRealizadas = [

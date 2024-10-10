@@ -8,11 +8,11 @@ import {
     GridColumn
 } from "semantic-ui-react";
 import './Sobre.css'
-import adm from "../../assets/adm.png"
-import mission from "../../assets/mission.png"
-import valores from "../../assets/valores.png"
-import visao from "../../assets/visao.png"
-import Header from "../../components/Header"
+import adm from "../../../assets/adm.png"
+import mission from "../../../assets/mission.png"
+import valores from "../../../assets/valores.png"
+import visao from "../../../assets/visao.png"
+import Header from "../../../components/Header"
 import { useMediaQuery } from 'react-responsive';
 function Sobre() {
 

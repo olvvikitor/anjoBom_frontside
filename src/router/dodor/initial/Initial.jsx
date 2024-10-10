@@ -23,15 +23,15 @@ import {
 
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import img from "../../assets/img.png";
-import logo from "../../assets/logo.png";
-import Breve from "../../assets/breve.png";
+import img from "../../../assets/img.png";
+import logo from "../../../assets/logo.png";
+import Breve from "../../../assets/breve.png";
 import "../initial/initial.css";
-import AreaPix from "../../components/AreaPix";
-import QrCode from "../../components/QrCode";
-import NoQrCode from "../../components/NoQrCode";
-import NoQrCodeTablet from "../../components/NoQrCodeTablet";
-import TwoGridLayout from "../../components/TwoGridLayout";
+import AreaPix from "../../../components/AreaPix";
+import QrCode from "../../../components/QrCode";
+import NoQrCode from "../../../components/NoQrCode";
+import NoQrCodeTablet from "../../../components/NoQrCodeTablet";
+import TwoGridLayout from "../../../components/TwoGridLayout";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
 

@@ -7,31 +7,25 @@ import * as EmailValidator from 'email-validator';
 
 import {
     Container,
-    Segment,
-    Grid,
     BreadcrumbSection,
     BreadcrumbDivider,
     Breadcrumb,
     Label,
     Divider,
     Header,
-    FormField,
     Button,
     Checkbox,
     Form,
     FormInput,
     FormGroup,
     FormTextArea,
-    Icon,
-    TextArea,
-    MessageHeader,
-    Message,
-    TransitionGroup
+    Icon
+
 
 } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css'
 import "./FormDoador.css"
-import HeaderT from "../../components/Header";
+import HeaderT from "../../../components/Header";
 import { Link } from "react-router-dom";
 
 
@@ -43,6 +37,7 @@ function FormDoador() {
     const [stepVerification, setStepVerification] = useState(false);
     const [msgCodigo, setMsgCodigo] = useState(false);
     const [recebidoCodigo, setRecebidoCodigo] = useState('');
+    const [buttonAtivo, setButtonAtivo] = useState(true);
 
 
 
@@ -76,8 +71,6 @@ function FormDoador() {
     const [codigo, setCodigo] = useState({
         codigoVerificacao: ''
     })
-    const [todosDados, setTodosDados] = useState([])
-    const [todoCodigo, setTodoCodigo] = useState([])
 
     const formatCEP = (cep) => {
         const cleaned = ('' + cep).replace(/\D/g, ''); // Remove qualquer caractere não numérico
@@ -144,14 +137,6 @@ function FormDoador() {
         return cleaned; // Retorna o número sem formatação, caso não seja válido
     };
 
-
-    useEffect(() => {
-        console.log("Aqui são os dados atualizados", todosDados);
-    }, [todosDados]); // Este useEffect é chamado sempre que todosDados muda
-
-    useEffect(() => {
-        console.log("Aqui são os codigo atualizados", todoCodigo);
-    }, [todoCodigo]); // Este useEffect é chamado sempre que todosDados muda
 
 
     // Função para atualizar os valores conforme o usuário digita
@@ -301,7 +286,7 @@ function FormDoador() {
     };
 
 
-    
+
 
     function voltarParaContato() {
         setStepFormContact(true);
@@ -392,8 +377,6 @@ function FormDoador() {
             valid = false;
         }
 
-
-
         // Se válido, vai para o endereço
         if (valid) {
             setStepFormAndress(false);
@@ -409,13 +392,14 @@ function FormDoador() {
 
     async function enviarCodigo() {
 
-        setMsgCodigo(true)
+        setMsgCodigo(true);
+        setButtonAtivo(false);
         try {
-            const response = await axios.get('http://localhost:5000/person/code/ ')
-            console.log("resposta ", response.data);
+            const response = await axios.get('http://apianjobom.victordev.shop/person/code/ ')
+            console.log("Codigo que foi enviado ", response.data);
             setRecebidoCodigo(response.data);
 
-            console.log("novo ", recebidoCodigo);
+            console.log("Codigo digitado pelo usuario ", recebidoCodigo);
 
 
         } catch (error) {
@@ -425,44 +409,34 @@ function FormDoador() {
     }
 
     async function enviarFormulario() {
-        console.log("Dados do formulário:", formValues);
-        let valid = true;
+
+        // console.log("Dados do formulário:", formValues);
         let newErros = {};
+        let valid = true;
 
-
+        // Verifica se o campo de código está vazio
         if (codigo.codigoVerificacao === '') {
             newErros = { codigoVerificacao: "Código é obrigatório" };
             valid = false;
         }
-
-        if (recebidoCodigo === codigo.codigoVerificacao) {
-            valid = true;
-            console.log("entrou no valid TRUE")
-        } else {
+        // Verifica se o código inserido é igual ao código esperado
+        else if (recebidoCodigo !== codigo.codigoVerificacao) {
+            newErros = { codigoVerificacao: "Código não é compatível!" };
             valid = false;
-            Swal.fire({
-                title: "Error!",
-                text: "O código não é compatível!",
-                icon: "error",
-                customClass: {
-                    confirmButton: 'swal2-confirm-custom'
-                }
-
-            });
+        }
+        // Se o código estiver correto
+        else {
+            valid = true;
         }
 
         if (valid) {
             try {
                 // Envia os dados para o backend via POST usando Axios
-                const response = await axios.post('http://localhost:5000/person/', formValues, {
+                const response = await axios.post('http://apianjobom.victordev.shop/person/', formValues, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 });
-
-                // Verifica se a resposta foi bem-sucedida
-                if (response.status === 200) {
-                }
 
                 // Exibe o SweetAlert para sucesso
                 Swal.fire({
@@ -871,8 +845,15 @@ function FormDoador() {
                                         </p>
                                         :
                                         null}
-
-                                    <button type="submit" className="btn-enviar-codigo" onClick={enviarCodigo} >Enviar código</button>
+                                    {
+                                        buttonAtivo ?
+                                            <button type="submit" className="btn-enviar-codigo" onClick={enviarCodigo}>
+                                                Enviar código
+                                            </button> :
+                                            <button type="submit" className="btn-enviar-codigo-inativo">
+                                                Enviar código
+                                            </button>
+                                    }
                                     <div className="div-nao-recebeu-codigo">
                                         <p>Não recebeu o código?</p>
                                         <p className="reenviar-codigo">Clique aqui para reenviar</p>
