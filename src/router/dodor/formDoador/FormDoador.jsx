@@ -395,7 +395,7 @@ function FormDoador() {
         setMsgCodigo(true);
         setButtonAtivo(false);
         try {
-            const response = await axios.get('http://apianjobom.victordev.shop/person/code/ ')
+            const response = await axios.get('https://apianjobom.victordev.shop/person/code/ ')
             console.log("Codigo que foi enviado ", response.data);
             setRecebidoCodigo(response.data);
 

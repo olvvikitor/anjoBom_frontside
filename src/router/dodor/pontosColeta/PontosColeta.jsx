@@ -6,6 +6,10 @@ import maps from "../../../assets/maps.png";
 import './PontosColeta.css'; // Importa o arquivo CSS externo
 
 const PontosColeta = () => {
+    useEffect(() => {
+        window.scrollTo(0, 0); // Rola para o topo ao montar o componente
+      }, []);
+    
 
     const [pontos, setPontos] = useState([]);
 
@@ -13,7 +17,7 @@ const PontosColeta = () => {
 
         const fetchPontos = async () => {
             try {
-                const response = await axios.get('http://apianjobom.victordev.shop/admin/find-collectionPoints');
+                const response = await axios.get('https://apianjobom.victordev.shop/coletas/buscarPontosDeColeta');
                 setPontos(response.data);
                 console.log("posntos aqui embaixo")
                 console.log(pontos);
@@ -38,7 +42,7 @@ const PontosColeta = () => {
                                     <h4>{ponto.name}</h4>
                                     <p>{ponto.address.cidade} - {ponto.address.estado} </p>
                                     <p>Endereço: {ponto.address.rua} - {ponto.address.cep} - {ponto.address.bairro}</p>
-                                    <p>{ponto.address.numero}</p>
+                                    <p>Número: {ponto.address.numero}</p>
                                 </GridColumn>
                                 {/* Segunda coluna (Imagem e Link) */}
                                 <GridColumn width={4} mobile={16} computer={4} className="pontos-image">

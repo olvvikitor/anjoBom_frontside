@@ -34,8 +34,32 @@ import NoQrCodeTablet from "../../../components/NoQrCodeTablet";
 import TwoGridLayout from "../../../components/TwoGridLayout";
 import { Link } from "react-router-dom";
 import { useMediaQuery } from 'react-responsive';
+import axios from "axios";
 
 const Initial = () => {
+
+    useEffect(() => {
+        window.scrollTo(0, 0); // Rola para o topo ao montar o componente
+    }, []);
+
+    const [eventos, setEventos] = useState([]);
+
+    useEffect(() => {
+        const fetchEventos = async () => {
+            try {
+                const response = await axios.get("https://apianjobom.victordev.shop/eventos");
+                setEventos(response.data); // Limita os resultados a no máximo 2 eventos
+            } catch (error) {
+                console.log("Erro ao buscar eventos: ", error);
+            }
+        };
+
+        fetchEventos();
+    }, []);
+
+    console.log("eventos aqui initial: ", eventos); 
+
+
     const [visible, setVisible] = useState(false);
     const [scrolled, setScrolled] = useState(true);
 
@@ -160,10 +184,10 @@ const Initial = () => {
                     <CardContent>
                         <div className="card-header-container">
                             <span className="card-number">1</span>
-                            <CardHeader className="card-header">Alimento</CardHeader>
+                            <CardHeader className="card-header">O que doar? </CardHeader>
                         </div>
                         <CardDescription textAlign="center" className="card-descripition">
-                            Frutas, legumes, almoço, jantar entre outros insumos para nossos pacientes.
+                            Refeições prontas ou outros insumos que ajudem a compor quem mais precisa
                         </CardDescription>
                     </CardContent>
                 </Card>
@@ -171,10 +195,10 @@ const Initial = () => {
                     <CardContent>
                         <div className="card-header-container">
                             <span className="card-number">2</span>
-                            <CardHeader className="card-header">Alimento</CardHeader>
+                            <CardHeader className="card-header">Identifique-se</CardHeader>
                         </div>
                         <CardDescription textAlign="center" className="card-descripition">
-                            Frutas, legumes, almoço, jantar entre outros insumos para nossos pacientes.
+                            Preencha os dados em nossa plataforma para registrar sua doação
                         </CardDescription>
                     </CardContent>
                 </Card>
@@ -182,10 +206,10 @@ const Initial = () => {
                     <CardContent>
                         <div className="card-header-container">
                             <span className="card-number">3</span>
-                            <CardHeader className="card-header">Alimento</CardHeader>
+                            <CardHeader className="card-header">Verificação</CardHeader>
                         </div>
                         <CardDescription textAlign="center" className="card-descripition">
-                            Frutas, legumes, almoço, jantar entre outros insumos para nossos pacientes.
+                            Nossa equipe verificará as informações da doação onde será enviado um código de verificação
                         </CardDescription>
                     </CardContent>
                 </Card>
@@ -193,10 +217,10 @@ const Initial = () => {
                     <CardContent>
                         <div className="card-header-container">
                             <span className="card-number">4</span>
-                            <CardHeader className="card-header">Alimento</CardHeader>
+                            <CardHeader className="card-header">Confirmar endereço</CardHeader>
                         </div>
                         <CardDescription textAlign="center" className="card-descripition">
-                            Frutas, legumes, almoço, jantar entre outros insumos para nossos pacientes.
+                            Confirme o endereço para que possamos organizar a retirada da sua doação ou indicar indicar um ponto de coleta mais próximo
                         </CardDescription>
                     </CardContent>
                 </Card>
@@ -247,14 +271,40 @@ const Initial = () => {
                 </GridRow>
             </Grid>
 
+            {eventos.length > 0 ? (
+                <>
+                    <Header as='h2' textAlign="center" className="text-como-doar">
+                        Ações realizadas
+                    </Header>
+                    <TwoGridLayout />
+                    <Container textAlign="center" className="container-button-see">
+                        <Link to="acoesRealizadas">
+                            <Button className="btn-inverted">Ver mais</Button>
+                        </Link>
+                    </Container>
+                </>
+            ) : (
+                <div className='no-events-message'>
+                    <h2>A Anjo Bom está sempre ao lado de quem precisa!</h2>
+                    <p>
+                        Nosso compromisso é levar solidariedade e esperança a quem mais precisa.
+                        Promovemos eventos voltados para arrecadação e distribuição de alimentos,
+                        roupas e outros itens essenciais. Essas ações impactam diretamente a vida
+                        de muitas pessoas em situação de vulnerabilidade na cidade de Feira de Santana
+                        e arredores.
+                    </p>
+                    <p>
+                        Continuamos trabalhando para expandir nossos projetos, mobilizando nossa comunidade
+                        em prol de um mundo mais justo e igualitário.  Mesmo que <strong>não haja eventos</strong> no momento,
+                        estamos planejando novas ações para transformar vidas e semear esperança.
 
-            <Header as='h2' textAlign="center" className="text-como-doar">Ações realizadas</Header>
-            <TwoGridLayout />
-            <Container textAlign="center" className="container-button-see">
-                <Link to="acoesRealizadas">
-                    <Button className="btn-inverted">Ver mais</Button>
-                </Link>
-            </Container>
+                    </p>
+                    <p>
+                        <strong> Acompanhe-nos e faça parte desta corrente do bem!</strong>
+                    </p>
+                </div>
+            )}
+
 
             <div className="container-breve-historia-1">
                 <Container className="container-breve-historia-2">

@@ -1,4 +1,5 @@
 import React from "react"
+import { useEffect } from "react";
 import {
     Container,
     Segment,
@@ -15,7 +16,10 @@ import visao from "../../../assets/visao.png"
 import Header from "../../../components/Header"
 import { useMediaQuery } from 'react-responsive';
 function Sobre() {
-
+    useEffect(() => {
+        window.scrollTo(0, 0); // Rola para o topo ao montar o componente
+      }, []);
+    
 
     // Media query hooks
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });

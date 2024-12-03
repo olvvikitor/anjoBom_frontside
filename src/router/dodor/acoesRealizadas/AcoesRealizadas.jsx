@@ -1,47 +1,90 @@
-import React from "react";
-import { Grid, GridRow, GridColumn, Image } from 'semantic-ui-react';
-import people from "../../../assets/people.png";
-import './AcoesRealizadas.css';
+import React, { useState, useEffect } from "react";
+import { Grid, GridRow, GridColumn, Image, Button } from "semantic-ui-react";
+import { useNavigate } from "react-router-dom"; // Importa o hook de navegação
+import axios from "axios";
+import "./AcoesRealizadas.css";
 import Header from "../../../components/Header";
 
 function AcoesRealizadas() {
-    const dadosAcoesRealizadas = [
-        {
-            title: "Anjo bom realiza",
-            date: "15 / 02 / 200 ",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor sint voluptatem dolores nulla sunt aliquid perspiciatis veritatis. Quisquam iste, voluptatum maiores dicta atque repudiandae nam perspiciatis et repellendus tenetur ea. ggggg g Quisquam iste, voluptatum maiores dicta atque  Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque  "
-        },
-        {
-            title: "Anjo bom realiza",
-            date: "15 / 02 / 200 ",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor sint voluptatem dolores nulla sunt aliquid perspiciatis veritatis. Quisquam iste, voluptatum maiores dicta atque repudiandae nam perspiciatis et repellendus tenetur ea. ggggg g Quisquam iste, voluptatum maiores dicta atque  Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque  "
-        },
-        {
-            title: "Anjo bom realiza",
-            date: "15 / 02 / 200 ",
-            content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor sint voluptatem dolores nulla sunt aliquid perspiciatis veritatis. Quisquam iste, voluptatum maiores dicta atque repudiandae nam perspiciatis et repellendus tenetur ea. ggggg g Quisquam iste, voluptatum maiores dicta atque  Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque Quisquam iste, voluptatum maiores dicta atque  "
-        }
+    const [dadosAcoesRealizadas, setDadosAcoesRealizadas] = useState(null);
+    const [visibleCount, setVisibleCount] = useState(2); // Número de itens visíveis inicialmente
+    const navigate = useNavigate(); // Hook para navegação
 
-    ];
+    useEffect(() => {
+        window.scrollTo(0, 0); // Rola para o topo ao montar o componente
+    }, []);
+
+    useEffect(() => {
+        fetchEventos();
+    }, []);
+
+    const fetchEventos = async () => {
+        try {
+            const response = await axios.get("https://apianjobom.victordev.shop/eventos");
+            setDadosAcoesRealizadas(response.data);
+        } catch (error) {
+            console.log("Erro ao buscar eventos: ", error);
+        }
+    };
+
+    const verMaisSobreAcaoRealizada = (acao) => {
+        // Navegar para a página de detalhes com os dados do evento
+        navigate("/acoesRealizadas/detalhes", { state: { acao } });
+    };
+
+    // Função para truncar a descrição
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return text.substring(0, maxLength) + '...';
+        }
+        return text;
+    };
+
+    // Função para carregar mais itens
+    const carregarMais = () => {
+        setVisibleCount((prevCount) => prevCount + 2); // Incrementa em 2 os itens visíveis
+    };
 
     return (
         <>
             <Header title1={"Ações"} title2={"Realizadas"} />
-            {dadosAcoesRealizadas.map((acoes, index) => (
-                <Grid key={index} className="container-all-acoes-realizadas">
-                    <GridRow columns={2} className="row-all-acoes-realizadas">
-                        <GridColumn className="column-all-acoes-realizadas-image" computer={4} mobile={16}>
-                            <Image centered src={people} size='medium' />
-                        </GridColumn>
-                        <GridColumn className="column-all-acoes-realizadas-text" computer={12} mobile={16}>
-                            <h4>{acoes.title}</h4>
-                            <p>{acoes.date}</p>
-                            <p>{acoes.content}</p>
-                        </GridColumn>
-                    </GridRow>
-                </Grid>
-            ))}
-            
+            {!dadosAcoesRealizadas ? (
+                <h1>NÃO TEM AÇÕES</h1>
+            ) : (
+                dadosAcoesRealizadas.slice(0, visibleCount).map((acao) => (
+                    <Grid key={acao.id} className="container-all-acoes-realizadas">
+                        <GridRow columns={2} className="row-all-acoes-realizadas">
+                            <GridColumn className="column-all-acoes-realizadas-image" computer={4} mobile={16}>
+                                <Image
+                                    centered
+                                    src={acao.photosUrl && acao.photosUrl.length > 0 ? acao.photosUrl[0] : "fallback_image.jpg"}
+                                    size="medium"
+                                />
+                            </GridColumn>
+                            <GridColumn className="column-all-acoes-realizadas-text" computer={12} mobile={16}>
+                                <h4>{acao.titulo}</h4>
+                                <p><strong>Início:</strong> {new Date(acao.data_inicio).toLocaleDateString()}</p>
+                                <p><strong>Fim:</strong> {new Date(acao.data_fim).toLocaleDateString()}</p>
+                                <p>{truncateText(acao.descricao, 200)}</p> {/* Limita a descrição a 100 caracteres */}
+                                <p
+                                    onClick={() => verMaisSobreAcaoRealizada(acao)}
+                                    className="btn-verMais-acao"
+                                    style={{ cursor: "pointer", color: "#2185d0" }}
+                                >
+                                    Ver detalhes...
+                                </p>
+                            </GridColumn>
+                        </GridRow>
+                    </Grid>
+                ))
+            )}
+            {dadosAcoesRealizadas && visibleCount < dadosAcoesRealizadas.length && (
+                <div className="carrega-mais-acoes">
+                    <p onClick={carregarMais} primary>
+                        Ver mais
+                    </p>
+                </div>
+            )}
         </>
     );
 }
