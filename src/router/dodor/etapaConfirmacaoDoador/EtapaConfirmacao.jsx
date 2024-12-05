@@ -22,11 +22,11 @@ function EtapaConfirmacao() {
     };
 
     const enviarCodigo = async () => {
-        
+
         try {
             console.log("Código de verificação:", codigoEtapaVerificacao);
-            
-            
+
+
             const phone = location.state?.phone; // Recupera o número do estado passado
 
             if (!phone) {
@@ -55,9 +55,10 @@ function EtapaConfirmacao() {
                     confirmButtonText: 'OK'
                 })
                 .then(() => {
-                    navigate(`/formEnderecoDoador`);
+                    navigate('/formEnderecoDoador', { state: { enderecoEnvi: response.data } });
                 });
             }
+            console.log(response)
             console.log("Deu bom demais...")
         } catch (error) {
             console.error("Erro ao enviar o código de verificação:", error);

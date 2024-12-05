@@ -1,20 +1,20 @@
-import React, { useState } from "react";
-import { useMediaQuery } from 'react-responsive';
-import axios from "axios";
-import Swal from 'sweetalert2';
-import {
-    Form,
-    FormInput,
-    FormGroup,
-    Button
-} from "semantic-ui-react";
+import React, { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
+import { Form, FormInput, FormGroup, Button } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import "../formEnderecoDoador/FormEnderecoDoador.css";
 import HeaderT from "../../../components/Header";
-import { Link } from "react-router-dom";
-
 
 function FormEnderecoDoador() {
+    const location = useLocation();
+    const enderecoEnvi = location.state?.enderecoEnvi || {}; // Garante que sempre será um objeto vazio se undefined
+    const [endereco, setEndereco] = useState(enderecoEnvi);
+
+    // Log para verificar se os dados foram carregados corretamente
+    useEffect(() => {
+        console.log("Endereço carregado: ", endereco);
+    }, [endereco]);
+
     return (
         <>
             <HeaderT title1={"Agende sua"} title2={"Doação"} />
@@ -30,6 +30,8 @@ function FormEnderecoDoador() {
                             placeholder="Digite seu CEP"
                             type="text"
                             maxLength={9}
+                            value={endereco.address.cep || ""} // Evita erro se `cep` for undefined
+                            onChange={(e) => setEndereco({ ...endereco, cep: e.target.value })}
                         />
                         <FormInput
                             fluid
@@ -37,6 +39,8 @@ function FormEnderecoDoador() {
                             placeholder="Digite sua rua"
                             type="text"
                             maxLength={30}
+                            value={endereco.address.rua || ""}
+                            onChange={(e) => setEndereco({ ...endereco, rua: e.target.value })}
                         />
                         <FormGroup widths="equal">
                             <FormInput
@@ -45,6 +49,8 @@ function FormEnderecoDoador() {
                                 placeholder="Digite sua cidade"
                                 type="text"
                                 maxLength={30}
+                                value={endereco.address.cidade || ""}
+                                onChange={(e) => setEndereco({ ...endereco, cidade: e.target.value })}
                             />
                             <FormInput
                                 fluid
@@ -52,6 +58,8 @@ function FormEnderecoDoador() {
                                 placeholder="Digite seu bairro"
                                 type="text"
                                 maxLength={30}
+                                value={endereco.address.bairro || ""}
+                                onChange={(e) => setEndereco({ ...endereco, bairro: e.target.value })}
                             />
                         </FormGroup>
                         <FormGroup widths="equal">
@@ -61,6 +69,8 @@ function FormEnderecoDoador() {
                                 placeholder="Digite seu estado"
                                 type="text"
                                 maxLength={2}
+                                value={endereco.address.estado || ""}
+                                onChange={(e) => setEndereco({ ...endereco, estado: e.target.value })}
                             />
                             <FormInput
                                 fluid
@@ -68,6 +78,8 @@ function FormEnderecoDoador() {
                                 placeholder="Digite o número de sua residência"
                                 type="text"
                                 maxLength={6}
+                                value={endereco.address.numero || ""}
+                                onChange={(e) => setEndereco({ ...endereco, numero: e.target.value })}
                             />
                         </FormGroup>
                     </Form>
@@ -77,15 +89,12 @@ function FormEnderecoDoador() {
                         Editar
                     </Button>
                     <Button type="submit" className="btn-confirmar-enderecoDoador">
-                        <Link to="/categoriaDoacao">
-                            Confirmar
-                        </Link>
+                        <Link to="/categoriaDoacao">Confirmar</Link>
                     </Button>
                 </div>
-
             </div>
         </>
-    )
+    );
 }
 
 export default FormEnderecoDoador;

@@ -395,9 +395,9 @@ function FormDoador() {
         setMsgCodigo(true);
         setButtonAtivo(false);
         try {
-            const response = await axios.get('https://apianjobom.victordev.shop/person/code/ ')
-            console.log("Codigo que foi enviado ", response.data);
-            setRecebidoCodigo(response.data);
+            const response = await axios.get(`https://apianjobom.victordev.shop/doador/code/+5575983633860 `)
+            console.log("Codigo que foi enviado ", response.data.codigo);
+            setRecebidoCodigo(response.data.codigo);
 
             console.log("Codigo digitado pelo usuario ", recebidoCodigo);
 
@@ -432,7 +432,7 @@ function FormDoador() {
         if (valid) {
             try {
                 // Envia os dados para o backend via POST usando Axios
-                const response = await axios.post('http://apianjobom.victordev.shop/person/', formValues, {
+                const response = await axios.post('https://apianjobom.victordev.shop/doador/', formValues, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
