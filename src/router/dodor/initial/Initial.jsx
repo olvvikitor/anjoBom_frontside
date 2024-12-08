@@ -23,7 +23,7 @@ import {
 
 } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-import img from "../../../assets/img.png";
+import img from "../../../assets/img.jpg";
 import logo from "../../../assets/logo.png";
 import Breve from "../../../assets/breve.png";
 import "../initial/initial.css";
@@ -57,7 +57,7 @@ const Initial = () => {
         fetchEventos();
     }, []);
 
-    console.log("eventos aqui initial: ", eventos); 
+    // console.log("eventos aqui initial: ", eventos);
 
 
     const [visible, setVisible] = useState(false);
@@ -94,7 +94,9 @@ const Initial = () => {
             {/* Desktop e Tablet Navbar */}
             <Menu secondary fixed="top" className={`desktop-menu ${scrolled ? "scrolled" : ""}`}>
                 <Container>
-                    <Image src={logo} size="tiny" className="image-logo" />
+                    <Link to="/">
+                        <Image src={logo} size="tiny" className="image-logo" />
+                    </Link>
                     <Menu.Menu position="right">
                         <Link to="/">
                             <Menu.Item className="main-navbar-item" name="Home" />
@@ -130,8 +132,9 @@ const Initial = () => {
                 visible={visible}
                 className="sidebar"
             >
-                <Image src={logo} size="tiny" />
-
+                <Link to="/">
+                    <Image src={logo} size="tiny" />
+                </Link>
                 <Link to="/">
                     <Menu.Item as="a" onClick={() => setVisible(false)}>
                         Home

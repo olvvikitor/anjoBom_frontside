@@ -28,8 +28,9 @@
 .container-sobre {
     z-index: 1;
     background-color: #135F99 !important;
-    padding: 0 60px 70px;
-    margin-bottom: 60px !important;
+    padding-bottom: 65px;
+    padding-left: 120px;
+    padding-right: 120px;
 
 }
 

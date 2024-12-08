@@ -1,5 +1,6 @@
+
 import React, { useState, useEffect } from "react";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation, Link, useNavigate} from "react-router-dom";
 import { Form, FormInput, FormGroup, Button } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import "../formEnderecoDoador/FormEnderecoDoador.css";
@@ -14,6 +15,13 @@ function FormEnderecoDoador() {
     useEffect(() => {
         console.log("Endereço carregado: ", endereco);
     }, [endereco]);
+
+    const navigate = useNavigate();
+
+    function irParaCategoriaDoacao() {
+        // Redireciona para a rota de categoriaDoacao passando o ID do endereço
+        navigate("/categoriaDoacao", { state: { id: enderecoEnvi.id } });
+    };
 
     return (
         <>
@@ -88,8 +96,8 @@ function FormEnderecoDoador() {
                     <Button type="submit" className="btn-editar-enderecoDoador">
                         Editar
                     </Button>
-                    <Button type="submit" className="btn-confirmar-enderecoDoador">
-                        <Link to="/categoriaDoacao">Confirmar</Link>
+                    <Button  onClick={irParaCategoriaDoacao} className="btn-confirmar-enderecoDoador">
+                        Confirmar
                     </Button>
                 </div>
             </div>
@@ -98,3 +106,4 @@ function FormEnderecoDoador() {
 }
 
 export default FormEnderecoDoador;
+

@@ -2,12 +2,19 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Card, Icon, Segment, Label, Button } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import Header from '../../../components/Header';
+import { useLocation } from "react-router-dom";
 import axios from 'axios';
 import './CategoriaDoacao.css';
 
 const CategoriaDoacao = () => {
 
     const [todosProdutosParaDoacao, setProdutosParaDoacao] = useState([]); // Estado inicial vazio
+    const location = useLocation();
+    const idPerson = location.state?.id; // ID recebido via state
+
+    useEffect(() => {
+        console.log("ID do person recebido:", idPerson);
+    }, [idPerson]);
 
     const mostrarProdutosAll = async () => {
         try {
@@ -105,7 +112,8 @@ const CategoriaDoacao = () => {
     const [quantidadeMedicamento, setQuantidadeMedicamento] = useState(0);
     const [quantidadeHigienicos, setQuantidadeHigienicos] = useState(0);
     const [itensCarrinho, setItensCarrinho] = useState([]);
-    const [carrinhoVisivel, setCarrinhoVisivel] = useState(false); // Estado para controlar a visibilidade do carrinho
+    const [carrinhoVisivel, setCarrinhoVisivel] = useState(false);
+    const [status, setStatus] = useState("");
 
     const temItensNoCarrinho =
         quantidadeAlimento > 0 ||
@@ -118,37 +126,59 @@ const CategoriaDoacao = () => {
     // Atualiza o carrinho quando as quantidades mudam
     useEffect(() => {
         const itens = [];
-        if (quantidadeAlimento > 0) itens.push({ nome: 'Alimento', quantidade: quantidadeAlimento });
-        if (quantidadeBebida > 0) itens.push({ nome: 'Bebida', quantidade: quantidadeBebida });
-        if (quantidadeBrinquedo > 0) itens.push({ nome: 'Brinquedo', quantidade: quantidadeBrinquedo });
-        if (quantidadeRoupas > 0) itens.push({ nome: 'Roupas', quantidade: quantidadeRoupas });
-        if (quantidadeMedicamento > 0) itens.push({ nome: 'Medicamento', quantidade: quantidadeMedicamento });
-        if (quantidadeHigienicos > 0) itens.push({ nome: 'Higiênicos', quantidade: quantidadeHigienicos });
+        if (quantidadeAlimento > 0) itens.push({ name: "Alimentos", quantity: quantidadeAlimento });
+        if (quantidadeBebida > 0) itens.push({ name: "Bebidas", quantity: quantidadeBebida });
+        if (quantidadeBrinquedo > 0) itens.push({ name: "Brinquedos", quantity: quantidadeBrinquedo });
+        if (quantidadeRoupas > 0) itens.push({ name: "Roupas", quantity: quantidadeRoupas });
+        if (quantidadeMedicamento > 0) itens.push({ name: "Medicamentos", quantity: quantidadeMedicamento });
+        if (quantidadeHigienicos > 0) itens.push({ name: "Higiênicos", quantity: quantidadeHigienicos });
         setItensCarrinho(itens);
     }, [quantidadeAlimento, quantidadeBebida, quantidadeBrinquedo, quantidadeRoupas, quantidadeMedicamento, quantidadeHigienicos]);
 
-    // Função para "Doar"
-    const handleDoar = () => {
-        console.log("Itens doados:", itensCarrinho);
-        alert("Doação realizada com sucesso!");
-        // Limpar as quantidades após doar
-        setQuantidadeAlimento(0);
-        setQuantidadeBebida(0);
-        setQuantidadeBrinquedo(0);
-        setQuantidadeRoupas(0);
-        setQuantidadeMedicamento(0);
-        setQuantidadeHigienicos(0);
-        setCarrinhoVisivel(false); // Ocultar carrinho após a doação
-    };
-
     const toggleCarrinho = () => {
-        setCarrinhoVisivel(!carrinhoVisivel); // Alternar visibilidade do carrinho
+        setCarrinhoVisivel(!carrinhoVisivel);
     };
 
     const calcularTotalItens = () => {
         return quantidadeAlimento + quantidadeBebida + quantidadeBrinquedo + quantidadeRoupas + quantidadeMedicamento + quantidadeHigienicos;
     };
 
+    // Função para enviar a doação para a API
+    const handleDoar = async () => {
+        if (!temItensNoCarrinho) {
+            alert("Adicione itens ao carrinho antes de doar.");
+            return;
+        }
+
+        console.log("vamos ver",itensCarrinho);
+
+        const url = `https://apianjobom.victordev.shop/doador/doarProduto/CriarCesta/${idPerson}`;
+        const requestBody = {
+            items: itensCarrinho,
+            status: "PENDENTE",
+        };
+
+        try {
+            const response = await axios.post(url, requestBody, {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+            console.log("Doação realizada com sucesso:", response.data);
+            setStatus("Doação realizada com sucesso!");
+            // Limpar as quantidades após doar
+            setQuantidadeAlimento(0);
+            setQuantidadeBebida(0);
+            setQuantidadeBrinquedo(0);
+            setQuantidadeRoupas(0);
+            setQuantidadeMedicamento(0);
+            setQuantidadeHigienicos(0);
+            setCarrinhoVisivel(false);
+        } catch (error) {
+            console.error("Erro ao realizar a doação:", error);
+            setStatus("Erro ao realizar a doação. Tente novamente.");
+        }
+    };
     return (
         <>
 

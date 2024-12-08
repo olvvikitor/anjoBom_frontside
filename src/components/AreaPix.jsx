@@ -49,7 +49,7 @@ function AreaPix() {
     console.log("value AreaPix: ", payload.amount);
 
     try {
-      const response = await axios.post("https://apianjobom.victordev.shop/doador/DoacaoPix", payload);
+      const response = await axios.post("https://apianjobom.victordev.shop/doador/doarpix", payload);
 
       if (response.status === 200 || response.status === 201) {
         Swal.fire({
@@ -57,8 +57,26 @@ function AreaPix() {
           title: "Sucesso",
           text: "Doação realizada com sucesso!",
           showConfirmButton: false,
-          timer: 2000,
+          timer: 3000,
         });
+
+        // Redireciona para o link retornado pelo servidor
+        const ticketUrl = response.data.ticket_url; // Supondo que o servidor retorne este dado no campo `ticket_url`
+        if (ticketUrl) {
+          // Define as dimensões e características da nova janela
+          const width = 800; // Largura da janela
+          const height = 600; // Altura da janela
+          const left = (window.screen.width - width) / 2; // Centraliza horizontalmente
+          const top = (window.screen.height - height) / 2; // Centraliza verticalmente
+
+          // Abre a janela com as opções especificadas
+          window.open(
+            ticketUrl,
+            "_blank",
+            `width=${width},height=${height},top=${top},left=${left},resizable=yes,scrollbars=yes`
+          );
+        }
+
       } else {
         Swal.fire({
           icon: "error",
@@ -68,17 +86,15 @@ function AreaPix() {
           timer: 2000,
         });
       }
-
-      console.log("Essa é a a resposta do pix: ", response);
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Erro",
-        text: "Erro na comunicação com o servidor. Tente novamente mais tarde.",
+        text: "Ocorreu um erro ao realizar a doação. Tente novamente.",
         showConfirmButton: false,
         timer: 2000,
       });
-      console.error(error);
+      console.error("Erro ao realizar a doação:", error);
     }
   };
 

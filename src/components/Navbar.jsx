@@ -30,7 +30,9 @@ function Navbar() {
             {isDesktopOrTablet && (
                 <Menu secondary fixed="top" className={`main-navbar-desktop ${scrolled ? "main-navbar-scrolled" : ""}`}>
                     <Container>
-                        <Image src={logo} size="tiny" className="main-navbar-logo" />
+                        <Link to="/">
+                            <Image src={logo} size="tiny" className="main-navbar-logo" />
+                        </Link>
                         <Menu.Menu position="right">
                             <Link to="/">
                                 <Menu.Item className="main-navbar-item" name="Home" />
@@ -67,7 +69,9 @@ function Navbar() {
                 visible={visible}
                 className="main-navbar-sidebar"
             >
-                <Image src={logo} size="tiny" />
+                <Link to="/">
+                    <Image src={logo} size="tiny" />
+                </Link>
                 <Link to="/">
                     <Menu.Item as="a" onClick={() => setVisible(false)}>
                         Home

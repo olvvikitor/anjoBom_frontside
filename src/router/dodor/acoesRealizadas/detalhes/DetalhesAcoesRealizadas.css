@@ -10,13 +10,17 @@
 
 .titulo-detalhes-acao {
     text-align: center; 
-    color: #2b67f6; 
+    color: #135F99; 
     font-weight: bold;
     text-transform: capitalize; 
 }
 
 strong, h3 {
-    color: #2b67f6; 
+    color: #135F99; 
+}
+
+p{
+    text-align: justify;
 }
 
 .detalhes-endereco p {

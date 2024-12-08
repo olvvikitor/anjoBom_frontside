@@ -19,36 +19,72 @@ function AgendaDoacao() {
         setErrorVerificationNumber('');
     };
 
-    const enviar = () => {
-        // Remover todos os caracteres não numéricos, mas manter o "+55" no início
-        const unmaskedNumber = verificationNumber.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
+    // const enviar = () => {
+    //     // Remover todos os caracteres não numéricos, mas manter o "+55" no início
+    //     const unmaskedNumber = verificationNumber.replace(/\D/g, ''); // Remove todos os caracteres não numéricos
 
-        // Certificar-se de que o número começa com "+55"
-        let formattedNumber = unmaskedNumber;
-        if (formattedNumber.length > 0) {
-            formattedNumber = `+55${formattedNumber.slice(2)}`; // Preservar o DDD e número sem espaços ou caracteres extras
+    //     // Certificar-se de que o número começa com "+55"
+    //     let formattedNumber = unmaskedNumber;
+    //     if (formattedNumber.length > 0) {
+    //         formattedNumber = `+55${formattedNumber.slice(2)}`; // Preservar o DDD e número sem espaços ou caracteres extras
+    //     }
+
+    //     console.log("vernumero:", formattedNumber); // Exibe o número sem máscara, com +55
+
+    //     const url = `https://apianjobom.victordev.shop/doador/verificaNumero/${formattedNumber}`;
+
+    //     // Realizar a requisição com axios
+    //     axios.get(url)
+    //         .then((response) => {
+    //             // Exemplo de tratamento de sucesso
+    //             console.log('Sucesso', 'Número verificado com sucesso!', 'success');
+
+    //             // Redireciona para a página "etapaConfirmacaoDoador" após sucesso, passando o número
+    //             navigate('/etapaConfirmacaoDoador', { state: { phone: formattedNumber } });
+    //         })
+    //         .catch((error) => {
+    //             // Exemplo de tratamento de erro
+    //             const errorMessage = error?.response?.data?.message || 'Houve um problema ao verificar o número';
+    //             setErrorVerificationNumber(errorMessage);
+    //             console.log('Erro', errorMessage, 'error');
+    //         });
+    // };
+
+    const enviar = async () => {
+        // Remover todos os caracteres não numéricos
+        const unmaskedNumber = verificationNumber.replace(/\D/g, '');
+
+        // Verificar se o número está vazio
+        if (!unmaskedNumber) {
+            setErrorVerificationNumber('Telefone não pode ser vazio');
+            console.log('Erro', 'Telefone não pode ser vazio', 'error');
+            return;
         }
 
-        console.log("vernumero:", formattedNumber); // Exibe o número sem máscara, com +55
+        // Certificar-se de que o número começa com "+55"
+        let formattedNumber = `+55${unmaskedNumber.slice(2)}`; // Preserva o DDD e o número sem espaços ou caracteres extras
+
+        console.log("Número formatado:", formattedNumber);
 
         const url = `https://apianjobom.victordev.shop/doador/verificaNumero/${formattedNumber}`;
 
-        // Realizar a requisição com axios
-        axios.get(url)
-            .then((response) => {
-                // Exemplo de tratamento de sucesso
-                console.log('Sucesso', 'Número verificado com sucesso!', 'success');
+        try {
+            // Fazer a requisição com axios
+            const response = await axios.get(url);
 
-                // Redireciona para a página "etapaConfirmacaoDoador" após sucesso, passando o número
-                navigate('/etapaConfirmacaoDoador', { state: { phone: formattedNumber } });
-            })
-            .catch((error) => {
-                // Exemplo de tratamento de erro
-                const errorMessage = error?.response?.data?.message || 'Houve um problema ao verificar o número';
-                setErrorVerificationNumber(errorMessage);
-                console.log('Erro', errorMessage, 'error');
-            });
+            // Sucesso
+            console.log('Sucesso', 'Número verificado com sucesso!', 'success');
+
+            // Redireciona para a página "etapaConfirmacaoDoador" após sucesso, passando o número
+            navigate('/etapaConfirmacaoDoador', { state: { phone: formattedNumber } });
+        } catch (error) {
+            // Erro
+            const errorMessage = error?.response?.data?.message || 'Houve um problema ao verificar o número';
+            setErrorVerificationNumber(errorMessage);
+            console.log('Erro', errorMessage, 'error');
+        }
     };
+
 
     return (
         <>

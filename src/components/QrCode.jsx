@@ -49,7 +49,7 @@ function QrCode() {
 
 
         try {
-            const response = await axios.post("/doador/DoacaoPix", payload);
+            const response = await axios.post("https://apianjobom.victordev.shop/doador/doarpix", payload);
 
             if (response.status === 200 || response.status === 201) {
                 Swal.fire({
@@ -57,26 +57,37 @@ function QrCode() {
                     title: "Sucesso",
                     text: "Doação realizada com sucesso!",
                     showConfirmButton: false,
-                    timer: 3000, // 3 segundos
+                    timer: 3000,
                 });
+
+                // Redireciona para o link retornado pelo servidor
+                const ticketUrl = response.data.ticket_url; // Supondo que o servidor retorne este dado no campo `ticket_url`
+                if (ticketUrl) {
+                    // Para abrir no mesmo contexto
+                    // window.location.href = ticketUrl;
+
+                    // OU, para abrir em uma nova aba
+                    window.open(ticketUrl, "_blank");
+                }
+
             } else {
                 Swal.fire({
                     icon: "error",
                     title: "Erro",
                     text: "Ocorreu um erro ao realizar a doação. Tente novamente.",
                     showConfirmButton: false,
-                    timer: 3000,
+                    timer: 2000,
                 });
             }
         } catch (error) {
             Swal.fire({
                 icon: "error",
                 title: "Erro",
-                text: "Erro na comunicação com o servidor. Tente novamente mais tarde.",
+                text: "Ocorreu um erro ao realizar a doação. Tente novamente.",
                 showConfirmButton: false,
-                timer: 3000,
+                timer: 2000,
             });
-            console.error(error);
+            console.error("Erro ao realizar a doação:", error);
         }
     };
 
