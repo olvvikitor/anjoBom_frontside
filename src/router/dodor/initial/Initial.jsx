@@ -298,12 +298,12 @@ const Initial = () => {
                     </p>
                     <p>
                         Continuamos trabalhando para expandir nossos projetos, mobilizando nossa comunidade
-                        em prol de um mundo mais justo e igualitário.  Mesmo que <strong>não haja eventos</strong> no momento,
+                        em prol de um mundo mais justo e igualitário.  Mesmo que não haja eventos no momento,
                         estamos planejando novas ações para transformar vidas e semear esperança.
 
                     </p>
                     <p>
-                        <strong> Acompanhe-nos e faça parte desta corrente do bem!</strong>
+                        <strong className="strong-no-events-message"> Acompanhe-nos e faça parte desta corrente do bem!</strong>
                     </p>
                 </div>
             )}

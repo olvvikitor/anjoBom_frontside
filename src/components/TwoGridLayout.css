@@ -14,7 +14,7 @@
 
 .column-image-internal-computer,
 .column-image-internal-mobile-tablet {
-  background-color: #063a7a;
+  background-color: #10324B;
   padding: 10px;
   border-radius: 9px;
 }
@@ -28,14 +28,14 @@
 
 .column-internal-computer h4,
 .column-internal-mobile-tablet h4 {
-  color: #063a7a;
+  color: #10324B;
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 .column-internal-computer p,
 .column-internal-mobile-tablet p {
-  color: #063a7a;
+  color: #10324B;
   text-align: justify;
 
 }

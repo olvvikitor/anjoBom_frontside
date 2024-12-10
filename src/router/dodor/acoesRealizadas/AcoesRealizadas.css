@@ -5,7 +5,7 @@
 
 .column-all-acoes-realizadas-image{
     margin-left: 0;
-    background-color: #063a7a;
+    background-color: #10324B;
     border-radius:  14px 0px 0px 14px;
     padding: 2rem 0px;
 }
@@ -20,7 +20,7 @@
 
 .column-all-acoes-realizadas-text h4 {
     text-align: center;
-    color: #063a7a;
+    color: #10324B;
     font-weight: 700; /* Negrito */
     font-size: 2rem; /* Tamanho maior para destaque */
     margin-bottom: 1rem;
@@ -34,13 +34,13 @@
 }
 
 .column-all-acoes-realizadas-text strong {
-    color: #063a7a !important; /* Cor mais escura para contraste */
+    color: #10324B !important; /* Cor mais escura para contraste */
     font-weight: bolder !important;
     margin-bottom: 1rem;
 }
 
 .btn-verMais-acao {
-    color: #063a7a !important;
+    color: #10324B !important;
     font-weight: bold !important;
     text-decoration: none;
     cursor: pointer;
@@ -52,26 +52,56 @@
 }
 
 .carrega-mais-acoes {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    margin-bottom: 20px !important;
 }
 
 .carrega-mais-acoes button {
-    background-color: #fff;
-    color: #063a7a;
-    padding: 10px 20px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s, color 0.3s;
+    background-color: #fff !important;
+    color: #10324B !important;
+    padding: 10px 20px !important;
+    font-weight: bold !important;
+    cursor: pointer !important;
+    border: 3px solid #10324B !important;
+    border-radius: 5px !important;
+
+    transition: background-color 0.3s, color 0.3s !important;
 }
 
 .carrega-mais-acoes button:hover {
-    background-color: #063a7a;
-    color: #fff;
+    background-color: #10324B !important;
+    color: #fff !important;
 }
+
+
+.lista-listaAcoesRealizadas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    /* Altura mínima para manter um espaçamento considerável */
+    max-width: 80%;
+    width: 100%;
+    margin: auto;
+    /* Centraliza o container na página */
+}
+
+.array-vazio {
+    text-align: center;
+    padding: 20px;
+    background-color: #135F99;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.array-vazio h1 {
+    color: #fff;
+    font-size: 24px;
+}
+
 
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {

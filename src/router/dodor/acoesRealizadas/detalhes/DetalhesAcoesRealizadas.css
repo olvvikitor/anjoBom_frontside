@@ -10,13 +10,13 @@
 
 .titulo-detalhes-acao {
     text-align: center; 
-    color: #135F99; 
+    color: #10324B; 
     font-weight: bold;
     text-transform: capitalize; 
 }
 
 strong, h3 {
-    color: #135F99; 
+    color: #10324B; 
 }
 
 p{
@@ -42,4 +42,8 @@ p{
     margin: 5px 0;
     object-fit: cover;
     border-radius: 5px;
+}
+
+.icon-left-acoes-detalhes{
+    color: #10324B !important;
 }

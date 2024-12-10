@@ -42,7 +42,7 @@ function DetalhesAcoesRealizada() {
                                 ))}
                             </ImageGroup>
                             <Link to="/acoesRealizadas">
-                                <Icon name="arrow left" size="large"/>
+                                <Icon name="arrow left" className="icon-left-acoes-detalhes" size="large"/>
                             </Link>
                         </GridColumn>
                     </GridRow>

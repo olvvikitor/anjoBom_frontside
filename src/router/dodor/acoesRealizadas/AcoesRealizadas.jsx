@@ -49,7 +49,11 @@ function AcoesRealizadas() {
         <>
             <Header title1={"Ações"} title2={"Realizadas"} />
             {!dadosAcoesRealizadas ? (
-                <h1>NÃO TEM AÇÕES</h1>
+                <div className='lista-listaAcoesRealizadas-container'>
+                    <div className="array-vazio">
+                        <h1>No momento não há pontos de coleta!</h1>
+                    </div>
+                </div>
             ) : (
                 dadosAcoesRealizadas.slice(0, visibleCount).map((acao) => (
                     <Grid key={acao.id} className="container-all-acoes-realizadas">
@@ -80,9 +84,9 @@ function AcoesRealizadas() {
             )}
             {dadosAcoesRealizadas && visibleCount < dadosAcoesRealizadas.length && (
                 <div className="carrega-mais-acoes">
-                    <p onClick={carregarMais} primary>
+                    <Button onClick={carregarMais} primary>
                         Ver mais
-                    </p>
+                    </Button>
                 </div>
             )}
         </>

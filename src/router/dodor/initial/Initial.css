@@ -6,7 +6,7 @@
   display: none !important;
   border: none !important;
   margin: 0 !important;
-  
+
 }
 
 .desktop-menu {
@@ -96,7 +96,7 @@
 
 .section-card-step {
   margin-top: 40px 0 !important;
-  
+
 
 }
 
@@ -110,11 +110,10 @@
 
 .no-events-message {
   text-align: center;
-  margin-top: 15px;
-  margin-bottom: 25px;
-  width: 100%;
-  padding: 20px
-  
+  margin: 15px auto 25px auto;
+  /* Centraliza o contêiner horizontalmente */
+  width: 70%;
+  padding: 20px;
 }
 
 .no-events-message h2 {
@@ -128,16 +127,21 @@
 .no-events-message p {
   font-size: 16px;
   line-height: 1.6;
-  color: #333; /* Cor do texto */
+  color: #333;
+  padding: 0 15px;
+  /* Padding nas laterais para evitar que o texto fique colado */
 }
-
+.strong-no-events-message{
+  color: #135F99 !important;
+  font-weight: bolder !important;
+}
 
 .card-group {
   margin: 3rem 0px !important;
 }
 
 .card {
-  margin: 10px 10px!important;
+  margin: 10px 10px !important;
 }
 
 .card-header-container {
@@ -284,8 +288,8 @@
 
 .btn-inverted {
   background-color: #fff !important;
-  color: #135F99 !important;
-  border: 2px solid #135F99 !important;
+  color: #10324B !important;
+  border: 2px solid #10324B !important;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: bold;
@@ -293,7 +297,7 @@
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
-  margin:  60px 0 !important;
+  margin: 60px 0 !important;
 }
 
 .btn-inverted:hover {
@@ -395,7 +399,7 @@
   /* Quando o scroll ocorre, altera o fundo da navbar */
   .scrolled {
     background-color: #10324B !important;
-   
+
   }
 
   /* Estilo do botão de toggle */
@@ -413,7 +417,7 @@
     display: none !important;
   }
 
-  .container-button-see-more{
+  .container-button-see-more {
     margin-top: 40px !important;
   }
 
