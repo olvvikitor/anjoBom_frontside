@@ -11,9 +11,11 @@ import 'semantic-ui-css/semantic.min.css';
 import '../etapaConfirmacaoDoador/EtapaConfirmacao.css';
 import HeaderT from "../../../components/Header";
 import { Link } from "react-router-dom";
+import { use } from "react";
 
 function EtapaConfirmacao() {
     const [codigoEtapaVerificacao, setCodigoEtapaVerificacao] = useState('');
+    const [reenv, setReenv] = useState(false)
     const navigate = useNavigate(); // Instância do hook de navegação
     const location = useLocation(); // Hook para acessar o estado passado pela navegação
 
@@ -52,11 +54,12 @@ function EtapaConfirmacao() {
                     title: 'Sucesso!',
                     text: 'Código verificado com sucesso!',
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    timer: 2000,
+                    showConfirmButton: false,
                 })
-                .then(() => {
-                    navigate('/formEnderecoDoador', { state: { enderecoEnvi: response.data } });
-                });
+                    .then(() => {
+                        navigate('/formEnderecoDoador', { state: { enderecoEnvi: response.data } });
+                    });
             }
             console.log(response)
             console.log("Deu bom demais...")
@@ -71,6 +74,26 @@ function EtapaConfirmacao() {
         }
     };
 
+    const reenviarCodigo = async () => {
+        const phone = location.state?.phone; // Recupera o número do estado passado
+
+
+        const url = `https://apianjobom.victordev.shop/doador/verificaNumero/${phone}`;
+
+        try {
+            // Fazer a requisição com axios
+            const response = await axios.get(url);
+
+            // Sucesso
+            console.log('Sucesso', 'Número verificado com sucesso! 2', 'success');
+            setReenv(true)
+
+        } catch (error) {
+            // Error
+            console.log('Erro', error, 'error');
+        }
+    }
+
     return (
         <>
             <HeaderT title1={"Agende sua"} title2={"Doação"} />
@@ -81,7 +104,12 @@ function EtapaConfirmacao() {
                 </div>
                 <div className="container-etapaConfirmacao-internal">
                     <h3>Etapa de confirmação</h3>
+                    {!reenv ? 
+                    
                     <p className="p-info-envio-sms">Enviamos um código por SMS </p>
+                    :
+                    <p className="p-info-envio-sms">Reenviamos um código por SMS </p>
+                    }
                     <Input
                         name="codigoEtapaVerificacao"
                         value={codigoEtapaVerificacao}
@@ -96,7 +124,7 @@ function EtapaConfirmacao() {
                         Verificar
                     </Button>
                     <p><Link to="/agendaDoacao">voltar</Link></p>
-                    <p>Não recebeu o código?
+                    <p onClick={reenviarCodigo}>Não recebeu o código?
                         <span> Reenviar código</span>
                     </p>
                 </div>

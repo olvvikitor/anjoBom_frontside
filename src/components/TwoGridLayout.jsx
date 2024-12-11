@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Grid, GridRow, GridColumn, Image } from 'semantic-ui-react';
 import axios from 'axios';
 import './TwoGridLayout.css';
+import mission from "../assets/mission.png"
 
 function TwoGridLayout() {
     const [eventos, setEventos] = useState([]);
@@ -61,9 +62,9 @@ function TwoGridLayout() {
                                 </GridColumn>
                                 <GridColumn only="computer" width={10} className="column-internal-computer">
                                     <h4>{evento.titulo}</h4>
-                                    <p>Início: {new Date(evento.data_inicio).toLocaleDateString()}</p>
-                                    <p>Fim: {new Date(evento.data_fim).toLocaleDateString()}</p>
-                                    <p>{truncateText(evento.descricao, 100)}</p>
+                                    <p>Início: <strong className='twogrid-strong'>{new Date(evento.data_inicio).toLocaleDateString()}</strong></p>
+                                    <p>Fim: <strong className='twogrid-strong'>{new Date(evento.data_fim).toLocaleDateString()}</strong></p>
+                                    <p><strong className='twogrid-strong'>{truncateText(evento.descricao, 100)}</strong></p>
                                 </GridColumn>
 
                                 {/* Mobile e Tablet: Imagem em cima e texto embaixo */}
@@ -77,17 +78,17 @@ function TwoGridLayout() {
                                         centered
                                         src={
                                             evento.photosUrl && evento.photosUrl.length > 0
-                                                ? evento.photosUrl[0]
-                                                : 'fallback_image.jpg'
+                                                ? evento.photosUrl[1]
+                                                : {mission}
                                         }
                                         size="small"
                                     />
                                 </GridColumn>
                                 <GridColumn only="mobile tablet" width={16} className="column-internal-mobile-tablet">
                                     <h4>{evento.titulo}</h4>
-                                    <p>Início: {new Date(evento.data_inicio).toLocaleDateString()}</p>
-                                    <p>Fim: {new Date(evento.data_fim).toLocaleDateString()}</p>
-                                    <p>{truncateText(evento.descricao, 100)}</p>
+                                    <p>Início: <strong className='twogrid-strong'>{new Date(evento.data_inicio).toLocaleDateString()}</strong></p>
+                                    <p>Fim: <strong className='twogrid-strong'>{new Date(evento.data_fim).toLocaleDateString()}</strong></p>
+                                    <p><strong className='twogrid-strong'>{truncateText(evento.descricao, 100)}</strong></p>
                                 </GridColumn>
                             </GridRow>
                         </Grid>

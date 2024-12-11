@@ -5,45 +5,79 @@
 }
 
 .grid-internal-computer {
-  margin: 0px 10px !important;
+  margin: 0px 0px !important;
 }
 
 .espaco-entre {
   margin-left: 20px;
 }
 
-.column-image-internal-computer,
-.column-image-internal-mobile-tablet {
-  background-color: #10324B;
+.column-image-internal-computer {
+  background-color: #fff !important;
   padding: 10px;
-  border-radius: 9px;
+  border-radius: 14px 0px 0px 14px;
+  border-bottom: 5px solid #135F99;
+  box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
+
+}
+
+.column-image-internal-mobile-tablet {
+  background-color: #fff !important;
+  padding: 10px;
+  border-radius: 14px 14px 0px 0px;
+  border-bottom: none;
+  box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
 }
 
 .column-internal-computer {
   padding-top: 10px;
-  background-color: #C8E9FF;
-  border-radius: 9px;
-
+  background-color: #fff !important;
+  border-radius: 0 14px 14px 0;
+  border-bottom: 5px solid #135F99;
+  box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
 }
 
-.column-internal-computer h4,
-.column-internal-mobile-tablet h4 {
-  color: #10324B;
+.column-internal-computer h4{
+  color: #135F99;
   font-size: 1.5rem;
   font-weight: bold;
 }
-
-.column-internal-computer p,
-.column-internal-mobile-tablet p {
-  color: #10324B;
+.column-internal-mobile-tablet h4 {
+  color: #135F99;
+  font-size: 1.5rem;
+  font-weight: bold;
   text-align: justify;
+}
 
+.column-internal-computer p{
+  color: #135F99;
+  font-weight: bolder;
+  font-size: medium;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+.column-internal-mobile-tablet p {
+  color: #135F99;
+  font-weight: bolder;
+  font-size: medium;
+  line-height: 1.6;
+  margin-bottom: 1rem;
 }
 
 .column-internal-mobile-tablet {
   text-align: center;
   padding: 20px;
-  background-color: #C8E9FF;
-  border-radius: 9px;
+  background-color: #fff;
+  border-radius: 0 0px 14px 14px;
+  box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
+  border-bottom: 5px solid #135F99;
+
 }
 
+.twogrid-strong {
+  color: #080909;
+  font-weight: 500;
+  font-size: medium;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}

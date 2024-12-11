@@ -288,8 +288,8 @@
 
 .btn-inverted {
   background-color: #fff !important;
-  color: #10324B !important;
-  border: 2px solid #10324B !important;
+  color: #135F99 !important;
+  border: 2px solid #135F99 !important;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   font-weight: bold;
@@ -301,9 +301,9 @@
 }
 
 .btn-inverted:hover {
-  background-color: #135F99;
-  color: #fff;
-  border-color: #135F99;
+  background-color: #135F99 !important;
+  color: #fff !important;
+  border-color: #135F99 !important;
   border: none;
 }
 
@@ -422,7 +422,7 @@
   }
 
   .btn-inverted {
-    margin-top: 60px !important;
+    margin-top: 1px !important;
   }
 
   .container-breve-historia .ui.grid .column {

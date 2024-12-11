@@ -116,34 +116,30 @@ function FormDoador() {
             // setErrorCep("Erro ao buscar o CEP"); // Atualiza com mensagem de erro
         }
     };
+    const formatPhoneForDisplay = (phone) => {
+        const cleaned = phone.replace(/\D/g, ''); // Remove caracteres não numéricos
 
-
-
-    const formatPhone = (phone) => {
-        const cleaned = ('' + phone).replace(/\D/g, ''); // Remove todos os caracteres não numéricos
-
-        // Primeiro caso: para números no formato (99) 9 9999-9999
-        const match = cleaned.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
-        if (match) {
-            return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
+        if (cleaned.length <= 2) {
+            return cleaned; // Apenas os primeiros dois dígitos (DDD)
+        } else if (cleaned.length <= 7) {
+            return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2)}`; // Formato parcial com DDD
+        } else {
+            return `(${cleaned.slice(0, 2)}) ${cleaned.slice(2, 7)}-${cleaned.slice(7, 11)}`; // Formato completo
         }
-
-        // Segundo caso: para números no formato (99) 9999-9999
-        const matchTenDigits = cleaned.match(/^(\d{2})(\d{4})(\d{4})$/);
-        if (matchTenDigits) {
-            return `(${matchTenDigits[1]}) ${matchTenDigits[2]}-${matchTenDigits[3]}`;
-        }
-
-        return cleaned; // Retorna o número sem formatação, caso não seja válido
     };
 
+    const formatPhoneForDatabase = (phone) => {
+        const cleaned = phone.replace(/\D/g, ''); // Remove caracteres não numéricos
+        if (cleaned.length === 11) {
+            return `+55${cleaned}`; // Adiciona o código do país
+        }
+        throw new Error('Número de telefone inválido. Deve conter 11 dígitos.');
+    };
 
 
     // Função para atualizar os valores conforme o usuário digita
     const handleChange = async (e) => {
         const { name, value } = e.target;
-
-
         // Verifica se o campo que está sendo alterado é o CEP
         if (name.startsWith('address.cep')) {
             const field = name.split('.')[1];
@@ -171,7 +167,7 @@ function FormDoador() {
                 }
             }));
         } else if (name === 'phone') {
-            setFormValues({ ...formValues, [name]: formatPhone(value) });
+            setFormValues({ ...formValues, [name]: formatPhoneForDisplay(value) }); // Formata para exibição
         } else if (name === 'codigoVerificacao') {
             setCodigo({
                 [name]: value
@@ -395,7 +391,7 @@ function FormDoador() {
         setMsgCodigo(true);
         setButtonAtivo(false);
         try {
-            const response = await axios.get(`https://apianjobom.victordev.shop/doador/code/+5575983633860 `)
+            const response = await axios.get(`https://apianjobom.victordev.shop/doador/code/+5575992477349 `)
             console.log("Codigo que foi enviado ", response.data.codigo);
             setRecebidoCodigo(response.data.codigo);
 
@@ -409,6 +405,7 @@ function FormDoador() {
     }
 
     async function enviarFormulario() {
+
 
         // console.log("Dados do formulário:", formValues);
         let newErros = {};
@@ -429,10 +426,19 @@ function FormDoador() {
             valid = true;
         }
 
+
+
         if (valid) {
+
+            // Formata o telefone antes de enviar para o backend
+            const formattedPhone = formatPhoneForDatabase(formValues.phone);
+            const dataToSend = { ...formValues, phone: formattedPhone };
+
+
+            console.log("como sera enviado: ", dataToSend)
             try {
                 // Envia os dados para o backend via POST usando Axios
-                const response = await axios.post('https://apianjobom.victordev.shop/doador/', formValues, {
+                const response = await axios.post('https://apianjobom.victordev.shop/doador/', dataToSend , {
                     headers: {
                         'Content-Type': 'application/json'
                     }

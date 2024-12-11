@@ -24,17 +24,17 @@ function DetalhesAcoesRealizada() {
                             <h3>Endereço</h3>
                             {acao.address && (
                                 <div className="detalhes-endereco">
-                                    <p><strong>Rua:</strong> {acao.address.rua}, {acao.address.numero}</p>
-                                    <p><strong>Bairro:</strong> {acao.address.bairro}</p>
-                                    <p><strong>Cidade:</strong> {acao.address.cidade} - {acao.address.estado}</p>
-                                    <p><strong>CEP:</strong> {acao.address.cep}</p>
+                                    <p><strong>Rua:</strong> <strong className="detalhes-endereco-strong">{acao.address.rua}, {acao.address.numero}</strong></p>
+                                    <p><strong>Bairro:</strong> <strong className="detalhes-endereco-strong">{acao.address.bairro}</strong></p>
+                                    <p><strong>Cidade:</strong> <strong className="detalhes-endereco-strong">{acao.address.cidade} - {acao.address.estado}</strong></p>
+                                    <p><strong>CEP:</strong> <strong className="detalhes-endereco-strong">{acao.address.cep}</strong></p>
                                 </div>
                             )}
                             <h3>Datas</h3>
-                            <p><strong>Início:</strong> {new Date(acao.data_inicio).toLocaleDateString()}</p>
-                            <p><strong>Fim:</strong> {new Date(acao.data_fim).toLocaleDateString()}</p>
+                            <p><strong>Início:</strong> <strong className="detalhes-endereco-strong">{new Date(acao.data_inicio).toLocaleDateString()}</strong></p>
+                            <p><strong>Fim:</strong> <strong className="detalhes-endereco-strong">{new Date(acao.data_fim).toLocaleDateString()}</strong></p>
                             <h3>Descrição</h3>
-                            <p>{acao.descricao}</p>
+                            <p><strong className="detalhes-endereco-strong">{acao.descricao}</strong></p>
                             <h3>Imagens</h3>
                             <ImageGroup size="tiny">
                                 {acao.photosUrl.map((url, index) => (

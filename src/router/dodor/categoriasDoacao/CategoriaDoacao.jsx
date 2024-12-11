@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Card, Icon, Segment, Label, Button } from 'semantic-ui-react';
+import { Grid, Card, Icon, Segment, Label, Button, Popup, GridColumn, Header } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
-import Header from '../../../components/Header';
+import Headers from '../../../components/Header';
 import { useLocation } from "react-router-dom";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 import './CategoriaDoacao.css';
 
 const CategoriaDoacao = () => {
@@ -150,7 +151,7 @@ const CategoriaDoacao = () => {
             return;
         }
 
-        console.log("vamos ver",itensCarrinho);
+        console.log("vamos ver", itensCarrinho);
 
         const url = `https://apianjobom.victordev.shop/doador/doarProduto/CriarCesta/${idPerson}`;
         const requestBody = {
@@ -165,6 +166,13 @@ const CategoriaDoacao = () => {
                 },
             });
             console.log("Doação realizada com sucesso:", response.data);
+            Swal.fire({
+                title: 'Sucesso!',
+                text: 'Doação realizada com sucesso!',
+                icon: 'success',
+                timer: 3000,
+                showConfirmButton: false,
+            })
             setStatus("Doação realizada com sucesso!");
             // Limpar as quantidades após doar
             setQuantidadeAlimento(0);
@@ -182,7 +190,7 @@ const CategoriaDoacao = () => {
     return (
         <>
 
-            <Header title1={"Agende sua"} title2={"Doação"} />
+            <Headers     title1={"Agende sua"} title2={"Doação"} />
             <div className="container-caregoria-doacao">
                 <h1 className="title">Categorias</h1>
                 {!todosProdutosParaDoacao.length ? <h1 className="title">Vzio</h1> :
@@ -303,14 +311,39 @@ const CategoriaDoacao = () => {
                         </Grid.Column>
                     </Grid>
                 }
+                <Popup trigger={<Button>Show flowing popup</Button>} flowing hoverable>
+                    <Grid centered divided columns={3}>
+                        <GridColumn textAlign='center'>
+                            <Header as='h4'>Basic Plan</Header>
+                            <p>
+                                <b>2</b> projects, $10 a month
+                            </p>
+                            <Button>Choose</Button>
+                        </GridColumn>
+                        <GridColumn textAlign='center'>
+                            <Header as='h4'>Business Plan</Header>
+                            <p>
+                                <b>5</b> projects, $20 a month
+                            </p>
+                            <Button>Choose</Button>
+                        </GridColumn>
+                        <GridColumn textAlign='center'>
+                            <Header as='h4'>Premium Plan</Header>
+                            <p>
+                                <b>8</b> projects, $25 a month
+                            </p>
+                            <Button>Choose</Button>
+                        </GridColumn>
+                    </Grid>
+                </Popup>
 
                 {/* Carrinho fixo no canto inferior direito */}
                 <div
                     className={`carrinho-container ${mostrarCarrinho ? 'mostrar' : ''}`}
                     style={{
                         position: 'fixed',
-                        bottom: '20px',
-                        right: '20px',
+                        bottom: '35px',
+                        right: '35px',
 
                     }}
                 >
@@ -343,7 +376,7 @@ const CategoriaDoacao = () => {
                             <h4>Carrinho</h4>
                             {itensCarrinho.map((item, index) => (
                                 <p key={index}>
-                                    {item.nome}: {item.quantidade}
+                                    {item.name}: {item.quantity}
                                 </p>
                             ))}
                             <div className="btn-doar" onClick={handleDoar}>
@@ -353,7 +386,6 @@ const CategoriaDoacao = () => {
                     )}
                 </div>
             </div>
-
         </>
     );
 };

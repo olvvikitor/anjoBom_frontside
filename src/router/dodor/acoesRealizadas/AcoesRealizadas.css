@@ -1,46 +1,55 @@
-.container-all-acoes-realizadas{
+.container-all-acoes-realizadas {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 0.5rem 0px !important;
-    padding: 4rem  6rem !important;
+    padding: 4rem 6rem !important;
 }
 
-.column-all-acoes-realizadas-image{
+.column-all-acoes-realizadas-image {
     margin-left: 0;
-    background-color: #10324B;
-    border-radius:  14px 0px 0px 14px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 14px 0px 0px 14px;
     padding: 2rem 0px;
+    backdrop-filter: blur(45px);
+    box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
+    border-bottom: 5px solid #135F99;
 }
+
 
 .column-all-acoes-realizadas-text {
-    background-color: #c8e9ff;
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 0 14px 14px 0;
     padding: 2rem;
     text-align: justify;
-    box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
+    border-bottom: 5px solid #135F99;
 }
 
 .column-all-acoes-realizadas-text h4 {
-    text-align: center;
-    color: #10324B;
-    font-weight: 700; /* Negrito */
-    font-size: 2rem; /* Tamanho maior para destaque */
+    color: #135F99;
+    font-weight: bolder !important;
+    font-size: 2rem;
     margin-bottom: 1rem;
 }
 
 .column-all-acoes-realizadas-text p {
-    color: #2c3e50; /* Cor mais escura para contraste */
+    color: #080909;
     font-weight: 500;
-    line-height: 1.6; /* Espaçamento entre linhas */
+    font-size: large;
+    line-height: 1.6;
     margin-bottom: 1rem;
 }
 
 .column-all-acoes-realizadas-text strong {
-    color: #10324B !important; /* Cor mais escura para contraste */
+    color: #135F99 !important;
+    /* Cor mais escura para contraste */
     font-weight: bolder !important;
     margin-bottom: 1rem;
 }
 
 .btn-verMais-acao {
-    color: #10324B !important;
+    color: #135F99 !important;
     font-weight: bold !important;
     text-decoration: none;
     cursor: pointer;
@@ -60,21 +69,19 @@
 
 .carrega-mais-acoes button {
     background-color: #fff !important;
-    color: #10324B !important;
+    color: #135F99 !important;
     padding: 10px 20px !important;
     font-weight: bold !important;
     cursor: pointer !important;
-    border: 3px solid #10324B !important;
+    border: 3px solid #135F99 !important;
     border-radius: 5px !important;
-
     transition: background-color 0.3s, color 0.3s !important;
 }
 
 .carrega-mais-acoes button:hover {
-    background-color: #10324B !important;
+    background-color: #135F99 !important;
     color: #fff !important;
 }
-
 
 .lista-listaAcoesRealizadas-container {
     display: flex;
@@ -82,11 +89,9 @@
     align-items: center;
     justify-content: center;
     height: 80vh;
-    /* Altura mínima para manter um espaçamento considerável */
     max-width: 80%;
     width: 100%;
     margin: auto;
-    /* Centraliza o container na página */
 }
 
 .array-vazio {
@@ -102,20 +107,51 @@
     font-size: 24px;
 }
 
+/* Ajustes para aumentar o tamanho das imagens */
+.column-all-acoes-realizadas-image img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+}
 
-
-@media only screen and (min-width: 768px) and (max-width: 991px) {
-
-    .container-all-acoes-realizadas{
-        margin: 0px 0px ;
+@media only screen and (max-width: 991px) {
+    .container-all-acoes-realizadas {
+        margin: 0px 0px;
     }
 
-    .column-all-acoes-realizadas-image{
-        border-radius:  14px 14px 0px 0px;
+    .column-all-acoes-realizadas-image {
+        border-radius: 14px 14px 0px 0px !important;
+        border-bottom: none !important;
+        box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
+    }
+
+
+    .column-all-acoes-realizadas-text {
+
+        border-radius: 0px 0px 14px 14px !important;
+        box-shadow: 2px 6px 6px rgba(59, 58, 58, 0.64);
+        border-bottom: 5px solid #993013 !important;
+    }
+
+    .column-all-acoes-realizadas-text h4 {
+        color: #135F99;
+        font-weight: bolder !important;
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
     }
     
-    .column-all-acoes-realizadas-text{
-        border-radius:  0px 0px 14px 14px;
+    .column-all-acoes-realizadas-text p {
+        color: #080909;
+        font-weight: 500;
+        font-size: medium;
+        line-height: 1.6;
+        margin-bottom: 1rem;
     }
-
+    
+    .column-all-acoes-realizadas-text strong {
+        color: #135F99 !important;
+        font-weight: bolder !important;
+        margin-bottom: 1rem;
+    }
+    
 }
