@@ -76,7 +76,7 @@ function AcoesRealizadas() {
                                     className="btn-verMais-acao"
                                     style={{ cursor: "pointer", color: "#2185d0" }}
                                 >
-                                    Ver detalhes...
+                                    Ler mais...
                                 </p>
                             </GridColumn>
                         </GridRow>

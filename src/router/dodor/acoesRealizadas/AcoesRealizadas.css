@@ -6,7 +6,7 @@
     padding: 4rem 6rem !important;
 }
 
-.column-all-acoes-realizadas-image {
+/* .column-all-acoes-realizadas-image {
     margin-left: 0;
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 14px 0px 0px 14px;
@@ -14,7 +14,25 @@
     backdrop-filter: blur(45px);
     box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
     border-bottom: 5px solid #135F99;
+} */
+
+.column-all-acoes-realizadas-image {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 14px 0px 0px 14px;
+    backdrop-filter: blur(45px);
+    box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
+    border-bottom: 5px solid #135F99;
+    padding: 0px !important;
 }
+
+.column-all-acoes-realizadas-image img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 14px 0px 0px 14px !important;
+    object-fit: cover !important;
+    /* Garante que a imagem cubra a área sem distorção */
+}
+
 
 
 .column-all-acoes-realizadas-text {
@@ -34,9 +52,9 @@
 }
 
 .column-all-acoes-realizadas-text p {
-    color: #080909;
+    color: #090808;
     font-weight: 500;
-    font-size: large;
+    font-size: larger;
     line-height: 1.6;
     margin-bottom: 1rem;
 }
@@ -45,6 +63,7 @@
     color: #135F99 !important;
     /* Cor mais escura para contraste */
     font-weight: bolder !important;
+    font-size: larger;
     margin-bottom: 1rem;
 }
 
@@ -125,21 +144,30 @@
         box-shadow: 2px 2px 6px rgba(59, 58, 58, 0.64);
     }
 
+    .column-all-acoes-realizadas-image img {
+        width: 100% !important;
+        height: 100% !important;
+        border-radius: 14px 14px 0px 0px !important;
+        object-fit: cover !important;
+        /* Garante que a imagem cubra a área sem distorção */
+    }
+
+
 
     .column-all-acoes-realizadas-text {
 
         border-radius: 0px 0px 14px 14px !important;
         box-shadow: 2px 6px 6px rgba(59, 58, 58, 0.64);
-        border-bottom: 5px solid #993013 !important;
+        border-bottom: 5px solid #135F99 !important;
     }
 
     .column-all-acoes-realizadas-text h4 {
-        color: #135F99;
+        color: #6990ad;
         font-weight: bolder !important;
         font-size: 1.5rem;
         margin-bottom: 1rem;
     }
-    
+
     .column-all-acoes-realizadas-text p {
         color: #080909;
         font-weight: 500;
@@ -147,11 +175,11 @@
         line-height: 1.6;
         margin-bottom: 1rem;
     }
-    
+
     .column-all-acoes-realizadas-text strong {
         color: #135F99 !important;
         font-weight: bolder !important;
         margin-bottom: 1rem;
     }
-    
+
 }

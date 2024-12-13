@@ -15,11 +15,11 @@ const CategoriaDoacao = () => {
 
     const [todosProdutosParaDoacao, setProdutosParaDoacao] = useState([]); // Estado inicial vazio
     const location = useLocation();
-    const endereco = location.state.endereco;
-    const idPerson = location.state.enderecoEnvi.id; // ID recebido via state
-    const navigate = useNavigate(); // Hook para navegação
+    // const endereco = location.state.enderecoEnvi;
+    const idPerson = location.state.id; // ID recebido via state
+    // const navigate = useNavigate(); // Hook para navegação
 
-    console.log("assim vem o endereco: ", endereco);
+    // console.log("assim vem o endereco: ", endereco);
     console.log("ID do person recebido:", idPerson);
 
 
@@ -262,7 +262,7 @@ const CategoriaDoacao = () => {
             <Headers title1={"Agende sua"} title2={"Doação"} />
             <div className="container-caregoria-doacao">
                 <h1 className="title">Categorias</h1>
-                {!todosProdutosParaDoacao.length ? <h1 className="title">Carregando...</h1> :
+                {!todosProdutosParaDoacao.length ? <h1 className="title">Vzio</h1> :
 
                     <Grid container stackable columns={3} doubling>
                         <Grid.Column>
@@ -378,34 +378,11 @@ const CategoriaDoacao = () => {
                                 </Card.Content>
                             </Card>
                         </Grid.Column>
-
-
-
-
                     </Grid>
-
                 }
 
                 <Button className="btn-doar" onClick={confirmarDoacao}>Doar</Button>
-                {/* <Button
-                    className='btn-back-voltar'
-                    onClick={() => navigate("/formEnderecoDoador", { state: { enderecoEnvi: enderecoEnvi.enderecoEnvi } })}
-                >
-                    Voltar
-                </Button> */}
 
-
-                {/* Carrinho fixo no canto inferior direito */}
-                <div
-                    className={`carrinho-container ${mostrarCarrinho ? 'mostrar' : ''}`}
-                    style={{
-                        position: 'fixed',
-                        bottom: '35px',
-                        right: '35px',
-
-                    }}
-                >
-                </div>
             </div>
         </>
     );

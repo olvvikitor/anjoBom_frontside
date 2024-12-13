@@ -78,7 +78,7 @@ function TwoGridLayout() {
                                         centered
                                         src={
                                             evento.photosUrl && evento.photosUrl.length > 0
-                                                ? evento.photosUrl[1]
+                                                ? evento.photosUrl[0]
                                                 : {mission}
                                         }
                                         size="small"

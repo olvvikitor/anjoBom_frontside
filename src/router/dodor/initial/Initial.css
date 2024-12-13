@@ -131,7 +131,8 @@
   padding: 0 15px;
   /* Padding nas laterais para evitar que o texto fique colado */
 }
-.strong-no-events-message{
+
+.strong-no-events-message {
   color: #135F99 !important;
   font-weight: bolder !important;
 }
@@ -408,7 +409,6 @@
     border: none !important;
   }
 
-
   .desktop-menu {
     display: none !important;
   }
@@ -418,7 +418,7 @@
   }
 
   .container-button-see-more {
-    margin-top: 40px !important;
+    margin-top: 0px !important;
   }
 
   .btn-inverted {

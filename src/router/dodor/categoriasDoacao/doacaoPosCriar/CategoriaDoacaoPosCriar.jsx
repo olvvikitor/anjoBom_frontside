@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import './CategoriaDoacaoPosDoacao.css';
 
 const CategoriaDoacaoPosDoacao = () => {
-
+    // 675c7f19581bffbcb0ec7a73
     useEffect(() => {
         window.scrollTo(0, 0); // Rola para o topo ao montar o componente
     }, []);
@@ -17,9 +17,9 @@ const CategoriaDoacaoPosDoacao = () => {
     // const idPerson = location.state?.id; // ID recebido via state
     const location = useLocation();
     const idPerson2 = location.state; // Dados recebidos do formulário
-    console.log("Dados do formulário recebdido:", idPerson2.idPerson2._id);
+    console.log("id recebdido categoria:", idPerson2.idPerson2._id);
 
-    // const navigate = useNavigate(); // Hook para navegação
+    const navigate = useNavigate(); // Hook para navegação
 
 
     let idPersonValid = idPerson2.idPerson2._id;
@@ -387,6 +387,7 @@ const CategoriaDoacaoPosDoacao = () => {
                 }
 
                 <Button className="btn-doar" onClick={confirmarDoacao}>Doar</Button>
+            
             </div>
         </>
     );

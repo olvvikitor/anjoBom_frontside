@@ -533,7 +533,7 @@ function FormDoador() {
                 })
                 const idPerson2 = response.data
                 // Redireciona com os dados do formulário
-                navigate("/categoriaDoacaoPosCriar", { state: { idPerson2 } });
+                navigate("/categoriaDoacaoPosCriar", { state: { idPerson2} });
             } catch (error) {
                 if (error.response && error.response.status === 409) {
                     Swal.fire({
