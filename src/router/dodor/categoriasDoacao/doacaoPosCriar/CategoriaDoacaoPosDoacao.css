@@ -1,0 +1,190 @@
+/* Geral */
+.container-caregoria-doacao {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 40px auto;
+    /* background-color: #9bb8d3; */
+    padding: 45px;
+    max-width: 900px;
+    width: 100%;
+    border-radius: 14px;
+}
+
+.borda-baixa {
+    border: 3px solid #1b7034 !important;
+}
+
+.borda-media {
+    border: 3px solid #bed819 !important;
+}
+
+.borda-alta {
+    border: 3px solid brown !important;
+}
+
+.nivel-prioridade-prioridade-alta {
+    background-color: brown;
+    padding: 3px;
+    width: 70px;
+    color: #fff;
+    text-align: center;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
+.nivel-prioridade-prioridade-media {
+    background-color: #bed819;
+    padding: 3px;
+    width: 70px;
+    color: #fff;
+    text-align: center;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
+.nivel-prioridade-prioridade-baixa {
+    background-color: #1b7034;
+    padding: 3px;
+    width: 70px;
+    color: #fff;
+    text-align: center;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
+.color-icon-star-alta {
+    background-color: brown !important;
+    color: #fff !important;
+    border-color: brown !important;
+}
+
+.color-icon-star-media {
+    background-color: #bed819 !important;
+    color: #fff !important;
+    border-color: #bed819 !important;
+}
+
+.color-icon-star-baixa {
+    background-color: #1b7034 !important;
+    color: #fff !important;
+    border-color: #1b7034 !important;
+}
+
+
+.title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 40px;
+    color: #135F99;
+
+}
+
+.cardHeader {
+    color: #135F99 !important;
+    margin: 6px 0px 0px 0px !important;
+}
+
+.counter-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.counter-controls div {
+    padding: 0 10px;
+    font-size: 18px;
+}
+
+.minus-btn {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #9bb8d3;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.plus-btn {
+    width: 30px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: #135F99;
+    color: white;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.minus-btn:hover {
+    background-color: #bfc9d2;
+
+}
+
+.plus-btn:hover {
+    background-color: #0c4a7e;
+}
+
+
+/* Carrinho */
+.carrinho-container {
+    position: absolute;
+    top: 37%;
+    right: 90px;
+
+}
+
+.cart-icon {
+    background-color: #135F99 !important;
+    color: white !important;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cart-segment {
+    background-color: #135F99 !important;
+    color: white !important;
+}
+
+.btn-doar {
+    background-color: #fff;
+    color: #135F99;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 9px;
+    padding: 3px 0px;
+}
+
+.btn-doar:hover {
+    cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .title {
+        font-size: 1.5rem;
+    }
+
+    .carrinho-container {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        display: none;
+        /* Oculto por padrão */
+        transition: opacity 0.3s ease-in-out;
+        /* Suaviza a transição */
+    }
+
+    .carrinho-container.mostrar {
+        display: block;
+        /* Mostra o carrinho quando a classe 'mostrar' é adicionada */
+    }
+
+}

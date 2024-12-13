@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from 'sweetalert2'
 import * as EmailValidator from 'email-validator';
@@ -38,6 +39,7 @@ function FormDoador() {
     const [msgCodigo, setMsgCodigo] = useState(false);
     const [recebidoCodigo, setRecebidoCodigo] = useState('');
     const [buttonAtivo, setButtonAtivo] = useState(true);
+    const navigate = useNavigate();
 
 
 
@@ -136,7 +138,6 @@ function FormDoador() {
         throw new Error('Número de telefone inválido. Deve conter 11 dígitos.');
     };
 
-
     // Função para atualizar os valores conforme o usuário digita
     const handleChange = async (e) => {
         const { name, value } = e.target;
@@ -229,9 +230,9 @@ function FormDoador() {
                     }
                     break;
                 case "address.rua":
-                    if (value.length > 29) {
+                    if (value.length > 99) {
                         if (!newErros.address) newErros.address = {};
-                        newErros.address.rua = "Máximo 30 caracteres";
+                        newErros.address.rua = "Máximo 100 caracteres";
                     } else {
                         if (newErros.address) delete newErros.address.rua;
                         if (Object.keys(newErros.address || {}).length === 0) delete newErros.address;
@@ -247,18 +248,18 @@ function FormDoador() {
                     }
                     break;
                 case "address.cidade":
-                    if (value.length > 29) {
+                    if (value.length > 99) {
                         if (!newErros.address) newErros.address = {};
-                        newErros.address.cidade = "Máximo 30 caracteres";
+                        newErros.address.cidade = "Máximo 100 caracteres";
                     } else {
                         if (newErros.address) delete newErros.address.cidade;
                         if (Object.keys(newErros.address || {}).length === 0) delete newErros.address;
                     }
                     break;
                 case "address.bairro":
-                    if (value.length > 29) {
+                    if (value.length > 99) {
                         if (!newErros.address) newErros.address = {};
-                        newErros.address.bairro = "Máximo 30 caracteres";
+                        newErros.address.bairro = "Máximo 100 caracteres";
                     } else {
                         if (newErros.address) delete newErros.address.bairro;
                         if (Object.keys(newErros.address || {}).length === 0) delete newErros.address;
@@ -281,9 +282,6 @@ function FormDoador() {
         });
     };
 
-
-
-
     function voltarParaContato() {
         setStepFormContact(true);
         setStepFormAndress(false);
@@ -293,36 +291,62 @@ function FormDoador() {
         let valid = true; // Inicializamos como verdadeiro e vamos alterar caso haja erros
         let newErros = {};
 
-        // Verifica se o nome está vazio
-        if (!formValues.name) {
+        // Validação de campos obrigatórios
+        if (!formValues.name || formValues.name.trim() === '') {
             newErros.name = "Nome é obrigatório";
             valid = false;
+        } else if (formValues.name.length < 10) {
+            newErros.name = "Mínimo de 10 caracteres";
+            valid = false;
+        } else if (formValues.name.length > 29) {
+            newErros.name = "Máximo 30 caracteres";
+            valid = false;
         }
-        if (!formValues.last_name) {
+
+        if (!formValues.last_name || formValues.last_name.trim() === '') {
             newErros.last_name = "Sobrenome é obrigatório";
             valid = false;
+        } else if (formValues.last_name.length < 10) {
+            newErros.last_name = "Mínimo de 10 caracteres";
+            valid = false;
+        } else if (formValues.last_name.length > 59) {
+            newErros.last_name = "Máximo 60 caracteres";
+            valid = false;
         }
-        if (!formValues.phone) {
+
+        if (!formValues.phone || formValues.phone.trim() === '') {
             newErros.phone = "Telefone é obrigatório";
             valid = false;
+        } else if (formValues.phone.length < 14) {
+            newErros.phone = "Mínimo de 14 caracteres";
+            valid = false;
+        } else if (formValues.phone.length > 15) {
+            newErros.phone = "Máximo 15 caracteres";
+            valid = false;
         }
 
-        if (!formValues.email) {
+        if (!formValues.email || formValues.email.trim() === '') {
             newErros.email = "E-mail é obrigatório";
             valid = false;
-        }
-        if (!formValues.motivation) {
-            newErros.motivation = "Motivação é obrigatório";
+        } else if (!EmailValidator.validate(formValues.email)) {
+            newErros.email = "Email é inválido";
+            valid = false;
+        } else if (formValues.email.length > 44) {
+            newErros.email = "Máximo 45 caracteres";
             valid = false;
         }
 
-        if (formValues.email) {
-            const isValid = EmailValidator.validate(formValues.email);
-            if (!isValid) {
-                newErros.email = "Email é inválido";
-                valid = false;
-            }
+        if (!formValues.motivation || formValues.motivation.trim() === '') {
+            newErros.motivation = "Motivação é obrigatória";
+            valid = false;
+        } else if (formValues.motivation.length < 10) {
+            newErros.motivation = "Máximo de 10 caracteres";
+            valid = false;
+        } else if (formValues.motivation.length > 99) {
+            newErros.motivation = "Máximo de 100 caracteres";
+            valid = false;
         }
+
         // Se válido, vai para o endereço
         if (valid) {
             setStepFormAndress(true);
@@ -336,6 +360,7 @@ function FormDoador() {
     }
 
 
+
     function voltarParaEndereco() {
         setStepVerification(false);
         setStepFormAndress(true);
@@ -345,35 +370,65 @@ function FormDoador() {
         let valid = true;
         let newErros = {};
 
-        // Validação dos campos fora do endereço
-
         // Validação dos campos dentro de `address`
-        if (!formValues.address.cep) {
+        if (!formValues.address.cep || formValues.address.cep.trim() === '') {
             newErros.address = { cep: "CEP é obrigatório" };
             valid = false;
-        }
-        if (!formValues.address.estado) {
-            newErros.address = { ...newErros.address, estado: "Estado é obrigatório" };
-            valid = false;
-        }
-        if (!formValues.address.cidade) {
-            newErros.address = { ...newErros.address, cidade: "Cidade é obrigatória" };
-            valid = false;
-        }
-        if (!formValues.address.bairro) {
-            newErros.address = { ...newErros.address, bairro: "Bairro é obrigatório" };
-            valid = false;
-        }
-        if (!formValues.address.rua) {
-            newErros.address = { ...newErros.address, rua: "Rua é obrigatória" };
-            valid = false;
-        }
-        if (!formValues.address.numero) {
-            newErros.address = { ...newErros.address, numero: "Número é obrigatório" };
+        } else if (formValues.address.cep.length !== 9) {
+            newErros.address = { cep: "CEP deve ter exatamente 9 caracteres" };
             valid = false;
         }
 
-        // Se válido, vai para o endereço
+        if (!formValues.address.estado || formValues.address.estado.trim() === '') {
+            newErros.address = { ...newErros.address, estado: "Estado é obrigatório" };
+            valid = false;
+        } else if (formValues.address.estado.length !== 2) {
+            newErros.address = { ...newErros.address, estado: "Deve ter exatamente 2 caracteres" };
+            valid = false;
+        }
+
+        if (!formValues.address.cidade || formValues.address.cidade.trim() === '') {
+            newErros.address = { ...newErros.address, cidade: "Cidade é obrigatória" };
+            valid = false;
+        } else if (formValues.address.cidade.length < 3) {
+            newErros.address = { ...newErros.address, cidade: "Mínimo 3 caracteres" };
+            valid = false;
+        } else if (formValues.address.cidade.length > 99) {
+            newErros.address = { ...newErros.address, cidade: "Máximo 100 caracteres" };
+            valid = false;
+        }
+
+        if (!formValues.address.bairro || formValues.address.bairro.trim() === '') {
+            newErros.address = { ...newErros.address, bairro: "Bairro é obrigatório" };
+            valid = false;
+        } else if (formValues.address.bairro.length < 3) {
+            newErros.address = { ...newErros.address, bairro: "Mínimo 3 caracteres" };
+            valid = false;
+        } else if (formValues.address.bairro.length > 99) {
+            newErros.address = { ...newErros.address, bairro: "Máximo 100 caracteres" };
+            valid = false;
+        }
+
+        if (!formValues.address.rua || formValues.address.rua.trim() === '') {
+            newErros.address = { ...newErros.address, rua: "Rua é obrigatória" };
+            valid = false;
+        } else if (formValues.address.rua.length < 3) {
+            newErros.address = { ...newErros.address, rua: "Mínimo 3 caracteres" };
+            valid = false;
+        } else if (formValues.address.rua.length > 99) {
+            newErros.address = { ...newErros.address, rua: "Máximo 100 caracteres" };
+            valid = false;
+        }
+
+        if (!formValues.address.numero || formValues.address.numero.trim() === '') {
+            newErros.address = { ...newErros.address, numero: "Número é obrigatório" };
+            valid = false;
+        } else if (formValues.address.numero.length > 6) {
+            newErros.address = { ...newErros.address, numero: "Máximo 6 caracteres" };
+            valid = false;
+        }
+
+        // Se válido, vai para a verificação
         if (valid) {
             setStepFormAndress(false);
             setStepVerification(true);
@@ -383,8 +438,8 @@ function FormDoador() {
 
         // Atualiza os erros
         setErros(newErros);
-
     }
+
 
     async function enviarCodigo() {
 
@@ -406,6 +461,7 @@ function FormDoador() {
 
     async function enviarFormulario() {
 
+        console.log("como sera enviado antes: ", formValues)
 
         // console.log("Dados do formulário:", formValues);
         let newErros = {};
@@ -438,7 +494,7 @@ function FormDoador() {
             console.log("como sera enviado: ", dataToSend)
             try {
                 // Envia os dados para o backend via POST usando Axios
-                const response = await axios.post('https://apianjobom.victordev.shop/doador/', dataToSend , {
+                const response = await axios.post('https://apianjobom.victordev.shop/doador/', dataToSend, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
@@ -475,6 +531,9 @@ function FormDoador() {
                 setCodigo({
                     codigoVerificacao: ''
                 })
+                const idPerson2 = response.data
+                // Redireciona com os dados do formulário
+                navigate("/categoriaDoacaoPosCriar", { state: { idPerson2 } });
             } catch (error) {
                 if (error.response && error.response.status === 409) {
                     Swal.fire({
@@ -578,6 +637,7 @@ function FormDoador() {
                                             name="name"
                                             type="text"
                                             maxLength={30}
+                                            minLength={10}
                                             value={formValues.name}
                                             onChange={handleChange}
                                         />
@@ -589,6 +649,7 @@ function FormDoador() {
                                             name="last_name"
                                             type="text"
                                             maxLength={60}
+                                            minLength={10}
                                             value={formValues.last_name}
                                             onChange={handleChange}
                                         />
@@ -603,6 +664,7 @@ function FormDoador() {
                                             placeholder="Digite seu telefone"
                                             name="phone"
                                             maxLength={15}
+                                            minLength={14}
                                             value={formValues.phone}
                                             onChange={handleChange}
                                         />
@@ -627,6 +689,7 @@ function FormDoador() {
                                         placeholder="Descreva sua motivação"
                                         name="motivation"
                                         maxLength={100}
+                                        minLength={10}
                                         value={formValues.motivation}
                                         onChange={handleChange}
                                     />
@@ -643,14 +706,9 @@ function FormDoador() {
                             <Button type='submit' className="btn-internal-forms-continous" onClick={irParaEndereco}>Continuar</Button>
                         </footer>
                     </div>
-
                     : null
                 }
-
-
                 {/* Step formulario endereço*/}
-
-
                 {stepFormAndress ?
                     <div className="wizard-form">
                         <header className="wizard-header">
@@ -672,11 +730,8 @@ function FormDoador() {
                                         </Header>
                                     </Divider>
                                 </div>
-
                                 /*Modo computador para Step Endereço */
-
                                 : <div>
-
                                     <Container textAlign="center">
                                         <Breadcrumb>
                                             <Icon name="check circle" size="large" className="color-label-circle-sucess" />
@@ -693,7 +748,6 @@ function FormDoador() {
                                 </div>
                             }
                         </header>
-
                         <main className="wizard-main">
                             <Form>
                                 <div className="form-inputs">
@@ -701,13 +755,13 @@ function FormDoador() {
                                     <FormInput
                                         fluid
                                         error={!!errorCep || (erros.address && erros.address.cep) ? { content: errorCep || erros.address.cep } : null}
-
                                         // error={!!(erros.address && erros.address.cep) && { content: erros.address.cep }}
                                         label={<label className="blue-label">CEP</label>}
                                         placeholder="Digite seu CEP"
                                         name="address.cep"
                                         type="text"
                                         maxLength={9}
+                                        minLength={9}
                                         value={formValues.address.cep}
                                         onChange={handleChange}
                                     />
@@ -720,6 +774,7 @@ function FormDoador() {
                                             name="address.estado"
                                             type="text"
                                             maxLength={2}
+                                            minLength={2}
                                             value={formValues.address.estado}
                                             onChange={handleChange}
                                         />
@@ -730,7 +785,8 @@ function FormDoador() {
                                             placeholder="Digite sua cidade"
                                             name="address.cidade"
                                             type="text"
-                                            maxLength={30}
+                                            maxLength={100}
+                                            minLength={3}
                                             value={formValues.address.cidade}
                                             onChange={handleChange}
                                         />
@@ -741,12 +797,12 @@ function FormDoador() {
                                             placeholder="Digite seu bairro"
                                             name="address.bairro"
                                             type="text"
-                                            maxLength={30}
+                                            maxLength={100}
+                                            minLength={3}
                                             value={formValues.address.bairro}
                                             onChange={handleChange}
                                         />
                                     </FormGroup>
-
                                     <FormGroup widths="equal">
                                         <FormInput
                                             fluid
@@ -755,7 +811,8 @@ function FormDoador() {
                                             placeholder="Digite sua rua"
                                             name="address.rua"
                                             type="text"
-                                            maxLength={30}
+                                            maxLength={100}
+                                            minLength={3}
                                             value={formValues.address.rua}
                                             onChange={handleChange}
                                         />
@@ -767,6 +824,7 @@ function FormDoador() {
                                             name="address.numero"
                                             type="text"
                                             maxLength={6}
+                                            minLength={1}
                                             value={formValues.address.numero}
                                             onChange={handleChange}
                                         />
@@ -783,10 +841,7 @@ function FormDoador() {
 
                     : null
                 }
-
-
                 {/* Step formulario Verificação*/}
-
                 {stepVerification ?
                     <div className="wizard-form">
                         <header className="wizard-header">
@@ -808,11 +863,8 @@ function FormDoador() {
                                         </Header>
                                     </Divider>
                                 </div>
-
                                 /*Modo computador para Step Verificação */
-
                                 : <div>
-
                                     <Container textAlign="center">
                                         <Breadcrumb>
                                             <Icon name="check circle" size="large" className="color-label-circle-sucess" />
@@ -829,7 +881,6 @@ function FormDoador() {
                                 </div>
                             }
                         </header>
-
                         <main className="wizard-main">
                             <Form>
                                 <div className="form-inputs">
@@ -862,7 +913,7 @@ function FormDoador() {
                                     }
                                     <div className="div-nao-recebeu-codigo">
                                         <p>Não recebeu o código?</p>
-                                        <p className="reenviar-codigo">Clique aqui para reenviar</p>
+                                        <p className="reenviar-codigo" onClick={enviarCodigo}>Clique aqui para reenviar</p>
                                     </div>
                                     <Checkbox
                                         label={
@@ -872,23 +923,17 @@ function FormDoador() {
                                         }
                                         defaultChecked
                                     />
-
                                 </div>
                             </Form>
                         </main>
-
                         <footer className="wizard-footer">
                             <Button type='submit' className="btn-internal-forms-back" onClick={voltarParaEndereco}>Voltar</Button>
                             <Button type='submit' className="btn-internal-forms-continous" onClick={enviarFormulario}>Enviar</Button>
                         </footer>
                     </div>
-
                     : null
                 }
-
-
             </div>
-
         </>
     )
 }

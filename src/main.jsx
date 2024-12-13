@@ -14,6 +14,7 @@
   import FormEnderecoDoador from './router/dodor/formEnderecoDoador/FormEnderecoDoador.jsx'
   import CategoriaDoacao from './router/dodor/categoriasDoacao/CategoriaDoacao.jsx'
   import ScrollToTop from './components/ScrollToTop.jsx'
+  import CategoriaDoacaoPosCrir from './router/dodor/categoriasDoacao/doacaoPosCriar/CategoriaDoacaoPosCriar.jsx'
 
   const router = createBrowserRouter([
     {
@@ -55,6 +56,10 @@
         {
           path: 'categoriaDoacao',
           element: <CategoriaDoacao/>
+        },
+        {
+          path: 'categoriaDoacaoPosCriar',
+          element: <CategoriaDoacaoPosCrir/>
         },
         {
           path: 'formDoador',
