@@ -2,18 +2,25 @@ import React, { useState, useEffect } from 'react';
 import { Grid, Card, Icon, Segment, Label, Button, Popup, GridColumn, Header } from 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import Headerss from '../../../../components/Header';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import './CategoriaDoacaoPosDoacao.css';
 
 const CategoriaDoacaoPosDoacao = () => {
 
+    useEffect(() => {
+        window.scrollTo(0, 0); // Rola para o topo ao montar o componente
+    }, []);
+
     const [todosProdutosParaDoacao, setProdutosParaDoacao] = useState([]); // Estado inicial vazio
     // const idPerson = location.state?.id; // ID recebido via state
     const location = useLocation();
     const idPerson2 = location.state; // Dados recebidos do formulário
     console.log("Dados do formulário recebdido:", idPerson2.idPerson2._id);
+
+    // const navigate = useNavigate(); // Hook para navegação
+
 
     let idPersonValid = idPerson2.idPerson2._id;
     console.log("vamos ver, ", idPersonValid)
@@ -147,6 +154,69 @@ const CategoriaDoacaoPosDoacao = () => {
     const calcularTotalItens = () => {
         return quantidadeAlimento + quantidadeBebida + quantidadeBrinquedo + quantidadeRoupas + quantidadeMedicamento + quantidadeHigienicos;
     };
+
+
+    const confirmarDoacao = () => {
+        // Verifica se há itens no carrinho
+        if (!temItensNoCarrinho) {
+            Swal.fire({
+                title: 'Carrinho vazio',
+                text: 'Adicione alguma categoria antes de confirmar a doação.',
+                icon: 'info',
+                showConfirmButton: false,
+                timer: 2500
+            });
+            window.scrollTo(0, 0);
+            return;
+        }
+        const totalQuantity = itensCarrinho.reduce((total, item) => total + item.quantity, 0);
+
+
+        // Cria o HTML da tabela dinamicamente com os itens do carrinho
+        const tabelaItens = `
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="background-color: #135F99; color: #fff">
+                            <th style="border: 1px solid #ddd; padding: 8px;">Categoria</th>
+                            <th style="border: 1px solid #ddd; padding: 8px;">Quantidade</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itensCarrinho.map(item => `
+                            <tr>
+                                <td style="border: 1px solid #ddd; padding: 8px;">${item.name}</td>
+                                <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">${item.quantity}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                    <tfoot>
+                        <tr style="background-color: #135F99; font-weight: bold; color:#fff">
+                            <td style="border: 1px solid #ddd; padding: 8px; color=#fff">Total</td>
+                            <td style="border: 1px solid #ddd; padding: 8px; text-align: center; color=#fff">${totalQuantity}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            `;
+
+        Swal.fire({
+            title: 'Confirmar Doação',
+            html: `
+                    ${tabelaItens}
+                `,
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#135F99',
+            cancelButtonColor: '#882020',
+            cancelButtonText: 'Cancelar',
+            confirmButtonText: 'Sim, Doar!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log("Confirmação de Doação recebida:");
+                handleDoar();
+            }
+        });
+    };
+
 
     // Função para enviar a doação para a API
     const handleDoar = async () => {
@@ -315,80 +385,8 @@ const CategoriaDoacaoPosDoacao = () => {
                         </Grid.Column>
                     </Grid>
                 }
-                <Popup trigger={<Button>Show flowing popup</Button>} flowing hoverable>
-                    <Grid centered divided columns={3}>
-                        <GridColumn textAlign='center'>
-                            <Header as='h4'>Basic Plan</Header>
-                            <p>
-                                <b>2</b> projects, $10 a month
-                            </p>
-                            <Button>Choose</Button>
-                        </GridColumn>
-                        <GridColumn textAlign='center'>
-                            <Header as='h4'>Business Plan</Header>
-                            <p>
-                                <b>5</b> projects, $20 a month
-                            </p>
-                            <Button>Choose</Button>
-                        </GridColumn>
-                        <GridColumn textAlign='center'>
-                            <Header as='h4'>Premium Plan</Header>
-                            <p>
-                                <b>8</b> projects, $25 a month
-                            </p>
-                            <Button>Choose</Button>
-                        </GridColumn>
-                    </Grid>
-                </Popup>
 
-                {/* Carrinho fixo no canto inferior direito */}
-                <div
-                    className={`carrinho-container ${mostrarCarrinho ? 'mostrar' : ''}`}
-                    style={{
-                        position: 'fixed',
-                        bottom: '35px',
-                        right: '35px',
-
-                    }}
-                >
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '-1px',
-                            right: '-5px',
-                            width: '30px',
-                            height: '30px',
-                            borderRadius: '50%',
-                            backgroundColor: 'red',
-                            color: 'white',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            fontSize: '12px',
-                            fontWeight: 'bold',
-                            zIndex: 100,
-                        }}
-                    >
-                        {calcularTotalItens()}
-                    </div>
-                    <Segment className="cart-icon" onClick={toggleCarrinho}>
-                        <Icon name="shopping cart" size="large" />
-                    </Segment>
-
-                    {carrinhoVisivel && temItensNoCarrinho && (
-                        <Segment className="cart-segment" raised>
-                            <h4>Carrinho</h4>
-                            {itensCarrinho.map((item, index) => (
-                                <p key={index}>
-                                    {item.name}: {item.quantity}
-                                </p>
-                            ))}
-                            <div className="btn-doar" onClick={handleDoar}>
-                                Doar
-                            </div>
-                        </Segment>
-                    )}
-                </div>
+                <Button className="btn-doar" onClick={confirmarDoacao}>Doar</Button>
             </div>
         </>
     );

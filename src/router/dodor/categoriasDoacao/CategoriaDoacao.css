@@ -154,16 +154,35 @@
 }
 
 .btn-doar {
-    background-color: #fff;
-    color: #135F99;
-    font-weight: bold;
-    text-align: center;
-    border-radius: 9px;
-    padding: 3px 0px;
+    background-color: #135F99 !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    border-radius: 5px !important;
+    padding: 12px 35px !important;
+    margin: 30px 0px !important;
 }
 
 .btn-doar:hover {
     cursor: pointer;
+    background-color: #266697 !important;
+}
+
+.btn-back-voltar{
+    background-color: #fff !important;
+    color: #135F99 !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    border:  3px solid #135F99 !important;
+    border-radius: 5px !important;
+    padding: 10px 15px !important;
+}
+
+.btn-back-voltar:hover{
+    cursor: pointer;
+    background-color: #135F99 !important;
+    color: #fff !important;
+
 }
 
 /* Responsividade */

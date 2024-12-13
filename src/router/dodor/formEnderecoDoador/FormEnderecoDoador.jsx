@@ -223,6 +223,8 @@ function FormEnderecoDoador() {
 
     };
 
+    console.log("numero em env: ", enderecoEnvi);
+    console.log("numero em endereco: ", endereco     );
 
     const handleCancelEdit = () => {
         setEndereco(initialEndereco); // Restaura o estado inicial

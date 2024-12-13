@@ -6,6 +6,7 @@ import "./AcoesRealizadas.css";
 import Header from "../../../components/Header";
 
 function AcoesRealizadas() {
+
     const [dadosAcoesRealizadas, setDadosAcoesRealizadas] = useState(null);
     const [visibleCount, setVisibleCount] = useState(2); // Número de itens visíveis inicialmente
     const navigate = useNavigate(); // Hook para navegação
@@ -51,7 +52,7 @@ function AcoesRealizadas() {
             {!dadosAcoesRealizadas ? (
                 <div className='lista-listaAcoesRealizadas-container'>
                     <div className="array-vazio">
-                        <h1>No momento não há pontos de coleta!</h1>
+                        <h1>No momento não há Ações Realizadas!</h1>
                     </div>
                 </div>
             ) : (
