@@ -6,6 +6,7 @@ import "../formEnderecoDoador/FormEnderecoDoador.css";
 import HeaderT from "../../../components/Header";
 import Swal from 'sweetalert2';
 import axios from "axios";
+import { use } from "react";
 
 function FormEnderecoDoador() {
     const location = useLocation();
@@ -20,16 +21,40 @@ function FormEnderecoDoador() {
             numero: "",
         },
     });
-    const [initialEndereco, setInitialEndereco] = useState({});
     const [isEditing, setIsEditing] = useState(false);
     const [errors, setErrors] = useState({});
+    const [nome, setNome] = useState()
     const navigate = useNavigate();
     let valid = true;
 
     useEffect(() => {
-        setEndereco(enderecoEnvi);
-        setInitialEndereco(enderecoEnvi);
-    }, [enderecoEnvi]);
+        fetchEndereco();
+    }, []);
+
+    const fetchEndereco = async () => {
+        try {
+            const response = await axios.get(`https://apianjobom.victordev.shop/doador/buscarDoador/${enderecoEnvi.id}`);
+            console.log("resposta da minha API: ", response.data);
+            const data = response.data;
+
+            setEndereco({
+                address: {
+                    cep: data.address.cep || "",
+                    estado: data.address.estado || "",
+                    cidade: data.address.cidade || "",
+                    bairro: data.address.bairro || "",
+                    rua: data.address.rua || "",
+                    numero: data.address.numero || "",
+                },
+            });
+
+            setNome(data.name)
+        } catch (error) {
+            console.log("Erro ao endereco do doador pelo id ", error);
+        }
+    };
+
+    console.log("Estado atualizado:", endereco);
 
     const formatCEP = (cep) => {
         const cleaned = ('' + cep).replace(/\D/g, '');
@@ -169,15 +194,31 @@ function FormEnderecoDoador() {
         if (!bairro) newErrors.bairro = "O bairro é obrigatório!";
         if (!rua) newErrors.rua = "A rua é obrigatória!";
         if (!numero) newErrors.numero = "O número é obrigatório!";
+
+        if (cep.length > 9) {
+            newErrors.cep = "Máximo de 9 caracteres"
+        } else if (cep.length < 9) {
+            newErrors.cep = "Exatamente de 9 caracteres"
+        }
+        if (estado.length < 2) {
+            newErrors.estado = "Exatamente de 2 caracteres"
+        }
         if (bairro.length > 99) {
             newErrors.bairro = "Máximo de 100 caracteres.";
+        } else if (bairro.length < 10) {
+            newErrors.bairro = "Mínimo de 10 caracteres"
         }
         if (cidade.length > 99) {
             newErrors.cidade = "Máximo de 100 caracteres.";
+        } else if (cidade.length < 10) {
+            newErrors.cidade = "Mínimo de 10 caracteres"
         }
         if (rua.length > 99) {
             newErrors.rua = "Máximo de 100 caracteres.";
+        } else if (rua.length < 10) {
+            newErrors.rua = "Mínimo de 10 caracteres"
         }
+
         setErrors(newErrors);
 
         if (Object.keys(newErrors).length > 0) {
@@ -201,7 +242,7 @@ function FormEnderecoDoador() {
                         showConfirmButton: false,
                     });
                     setIsEditing(false);
-                    setInitialEndereco(endereco);
+                    console.log("resposta: ", response.data);
                 } else {
                     Swal.fire({
                         icon: "error",
@@ -223,68 +264,66 @@ function FormEnderecoDoador() {
 
     };
 
-    console.log("numero em env: ", enderecoEnvi);
-    console.log("numero em endereco: ", endereco     );
-
     const handleCancelEdit = () => {
-        setEndereco(initialEndereco); // Restaura o estado inicial
         setIsEditing(false);
     };
-
-    console.log("veja como esta vindo o endereco, ", endereco);
 
     return (
         <>
             <HeaderT title1={"Agende sua"} title2={"Doação"} />
             <div className="container-external-enderecoDoador">
                 <div className="container-enderecoDoador-internal-title">
-                    <h3>Olá, Pedro <br /> Seja bem-vindo!</h3>
+                    <h3>Olá, {nome} <br /> Seja bem-vindo!</h3>
                 </div>
                 <div className="container-enderecoDoador-internal-main">
                     <Form>
                         <FormInput
                             fluid
                             label={<label className="blue-label">CEP</label>}
-                            error={errors.cep ? { content: errors.cep} : null}
+                            error={errors.cep ? { content: errors.cep } : null}
                             placeholder="Digite seu CEP"
                             value={endereco.address.cep}
                             readOnly={!isEditing}
                             name="address.cep"
                             maxLength={9}
+                            minLength={9}
                             onChange={isEditing ? handleChange : null}
                         />
                         <FormInput
                             fluid
                             label={<label className="blue-label">Rua</label>}
-                            error={errors.rua ? { content: errors.rua} : null}
+                            error={errors.rua ? { content: errors.rua } : null}
                             placeholder="Digite sua rua"
                             value={endereco.address.rua}
                             readOnly={!isEditing}
                             name="address.rua"
                             maxLength={100}
+                            minLength={10}
                             onChange={isEditing ? handleChange : null}
                         />
                         <FormGroup widths="equal">
                             <FormInput
                                 fluid
                                 label={<label className="blue-label">Cidade</label>}
-                                error={errors.cidade ? { content: errors.cidade} : null}
+                                error={errors.cidade ? { content: errors.cidade } : null}
                                 placeholder="Digite sua cidade"
                                 value={endereco.address.cidade}
                                 readOnly={!isEditing}
                                 name="address.cidade"
                                 maxLength={100}
+                                minLength={10}
                                 onChange={isEditing ? handleChange : null}
                             />
                             <FormInput
                                 fluid
                                 label={<label className="blue-label">Bairro</label>}
-                                error={errors.bairro ? { content: errors.bairro} : null}
+                                error={errors.bairro ? { content: errors.bairro } : null}
                                 placeholder="Digite seu bairro"
                                 value={endereco.address.bairro}
                                 readOnly={!isEditing}
                                 name="address.bairro"
                                 maxLength={100}
+                                minLength={10}
                                 onChange={isEditing ? handleChange : null}
                             />
                         </FormGroup>
@@ -292,23 +331,25 @@ function FormEnderecoDoador() {
                             <FormInput
                                 fluid
                                 label={<label className="blue-label">Estado</label>}
-                                error={errors.estado ? { content: errors.estado} : null}
+                                error={errors.estado ? { content: errors.estado } : null}
                                 placeholder="Digite seu estado"
                                 value={endereco.address.estado}
                                 readOnly={!isEditing}
                                 name="address.estado"
                                 maxLength={2}
+                                minLength={2}
                                 onChange={isEditing ? handleChange : null}
                             />
                             <FormInput
                                 fluid
                                 label={<label className="blue-label">Número</label>}
-                                error={errors.numero ? { content: errors.numero} : null}
+                                error={errors.numero ? { content: errors.numero } : null}
                                 placeholder="Digite o número da residência"
                                 value={endereco.address.numero}
                                 readOnly={!isEditing}
                                 name="address.numero"
                                 maxLength={7}
+                                minLength={1}
                                 onChange={isEditing ? handleChange : null}
                             />
                         </FormGroup>
