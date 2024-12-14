@@ -41,6 +41,10 @@
     font-weight: 500;
 }
 
+.custom-input-verification-code {
+    width: 200px;  /* Ou qualquer largura que você queira */
+}
+
 .btn-verificar-etapaConfirmacao {
     background-color: #135F99 !important;
     color: #fff !important;
@@ -64,6 +68,9 @@
     text-decoration: underline;
 
 }
+
+
+
 
 
 /* Responsividade para tablet */

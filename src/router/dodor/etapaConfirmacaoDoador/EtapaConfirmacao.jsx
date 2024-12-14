@@ -4,8 +4,10 @@ import axios from "axios";
 import Swal from 'sweetalert2';
 import {
     Button,
+    FormInput,
     Icon,
-    Input
+    Input,
+    Form
 } from "semantic-ui-react";
 import 'semantic-ui-css/semantic.min.css';
 import '../etapaConfirmacaoDoador/EtapaConfirmacao.css';
@@ -15,15 +17,23 @@ import { use } from "react";
 
 function EtapaConfirmacao() {
     const [codigoEtapaVerificacao, setCodigoEtapaVerificacao] = useState('');
-    const [reenv, setReenv] = useState(false)
+    const [reenv, setReenv] = useState(false);
+    const [error, setError] = useState('');
     const navigate = useNavigate(); // Instância do hook de navegação
     const location = useLocation(); // Hook para acessar o estado passado pela navegação
 
     const handleChange = (e) => {
         setCodigoEtapaVerificacao(e.target.value);
+        setError(''); // Limpa o erro ao digitar
+
     };
 
     const enviarCodigo = async () => {
+
+        if (!codigoEtapaVerificacao.trim()) {
+            setError('O código não pode estar vazio.');
+            return;
+        }
 
         try {
             console.log("Código de verificação:", codigoEtapaVerificacao);
@@ -65,12 +75,14 @@ function EtapaConfirmacao() {
             console.log("Deu bom demais...")
         } catch (error) {
             console.error("Erro ao enviar o código de verificação:", error);
-            Swal.fire({
-                title: 'Erro!',
-                text: 'Ocorreu um erro ao verificar o código. Tente novamente.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
+            setError('O código está incorreto. Tente novamente.');
+
+            // Swal.fire({
+            //     title: 'Erro!',
+            //     text: 'Ocorreu um erro ao verificar o código. Tente novamente.',
+            //     icon: 'error',
+            //     confirmButtonText: 'OK'
+            // });
         }
     };
 
@@ -104,18 +116,23 @@ function EtapaConfirmacao() {
                 </div>
                 <div className="container-etapaConfirmacao-internal">
                     <h3>Etapa de confirmação</h3>
-                    {!reenv ? 
-                    
-                    <p className="p-info-envio-sms">Enviamos um código por SMS </p>
-                    :
-                    <p className="p-info-envio-sms">Reenviamos um código por SMS </p>
+                    {!reenv ?
+
+                        <p className="p-info-envio-sms">Enviamos um código por SMS </p>
+                        :
+                        <p className="p-info-envio-sms">Reenviamos um código por SMS </p>
                     }
-                    <Input
-                        name="codigoEtapaVerificacao"
-                        value={codigoEtapaVerificacao}
-                        onChange={handleChange}
-                        placeholder="Digite o código"
-                    />
+                    <Form>
+                        <FormInput
+                            className="custom-input-verification-code"
+                            name="codigoEtapaVerificacao"
+                            value={codigoEtapaVerificacao}
+                            onChange={handleChange}
+                            placeholder="Digite o código"
+                            error={error ? { content: error } : null}
+
+                        />
+                    </Form>
                     <Button
                         type="submit"
                         className="btn-verificar-etapaConfirmacao"

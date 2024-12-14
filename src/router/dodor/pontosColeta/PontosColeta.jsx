@@ -45,9 +45,11 @@ const PontosColeta = () => {
                                     {/* Primeira coluna (Texto e Meta) */}
                                     <GridColumn width={12} mobile={16} computer={12} className="pontos-text">
                                         <h4>{ponto.name}</h4>
-                                        <p>{ponto.address.cidade} - {ponto.address.estado}</p>
-                                        <p>Endereço: {ponto.address.rua} - {ponto.address.cep} - {ponto.address.bairro}</p>
-                                        <p>Número: {ponto.address.numero}</p>
+                                        <p><strong>Cep: </strong>{ponto.address.cep}</p>
+                                        <p><strong>Cidade: </strong>{ponto.address.cidade} - {ponto.address.estado}</p>
+                                        <p><strong>Rua:</strong> {ponto.address.rua}</p>
+                                        <p><strong>Bairro:</strong> {ponto.address.bairro}</p>
+                                        <p><strong>Número:</strong> {ponto.address.numero}</p>
                                     </GridColumn>
                                     {/* Segunda coluna (Imagem e Link) */}
                                     <GridColumn width={4} mobile={16} computer={4} className="pontos-image">
