@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, GridRow, GridColumn, Image } from 'semantic-ui-react';
+import { useMediaQuery } from 'react-responsive';
 import axios from 'axios';
 import './TwoGridLayout.css';
 import mission from "../assets/mission.png"
 
 function TwoGridLayout() {
     const [eventos, setEventos] = useState([]);
+
+    const isWideScreen = useMediaQuery({ minWidth: 1401 }); // Se largura for maior que 1300
+
 
     useEffect(() => {
         const fetchEventos = async () => {
@@ -33,6 +37,8 @@ function TwoGridLayout() {
         return null; // Não renderiza nada se não houver eventos
     }
 
+
+
     return (
         <Grid className="r" stackable>
             <GridRow columns={eventos.length === 1 ? 1 : 2}>
@@ -47,10 +53,10 @@ function TwoGridLayout() {
                                 {/* Desktop: imagem e texto lado a lado */}
                                 <GridColumn
                                     only="computer"
-                                    width={6}
+                                    width={isWideScreen ? 6 : 16} // Largura condicional
                                     textAlign="center"
-                                    className="column-image-internal-computer"
-                                >
+                                    className={`column-image-internal-computer ${!isWideScreen ? 'mobile-tablet-layout' : ''}`} // Classe condicional
+                                    >
                                     <Image
                                         src={
                                             evento.photosUrl && evento.photosUrl.length > 0
@@ -58,9 +64,14 @@ function TwoGridLayout() {
                                                 : 'fallback_image.jpg'
                                         }
                                         size="big"
+                                        className={`column-image-internal-computer-image ${!isWideScreen ? 'mobile-tablet-layout-img' : ''}`}
                                     />
                                 </GridColumn>
-                                <GridColumn only="computer" width={10} className="column-internal-computer">
+                                <GridColumn 
+                                    only="computer" 
+                                    width={isWideScreen ? 10 : 16} // Largura condicional
+                                    className={`column-internal-computer ${!isWideScreen ? 'mobile-tablet-layout-computer' : ''}`}
+                                >
                                     <h4>{evento.titulo}</h4>
                                     <p>Início: <strong className='twogrid-strong'>{new Date(evento.data_inicio).toLocaleDateString()}</strong></p>
                                     <p>Fim: <strong className='twogrid-strong'>{new Date(evento.data_fim).toLocaleDateString()}</strong></p>
@@ -79,9 +90,10 @@ function TwoGridLayout() {
                                         src={
                                             evento.photosUrl && evento.photosUrl.length > 0
                                                 ? evento.photosUrl[0]
-                                                : {mission}
+                                                : { mission }
                                         }
-                                        size="small"
+                                        size="massive"
+                                        className='column-image-internal-mobile-tablet-image'
                                     />
                                 </GridColumn>
                                 <GridColumn only="mobile tablet" width={16} className="column-internal-mobile-tablet">
