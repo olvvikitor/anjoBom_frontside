@@ -377,6 +377,10 @@ function FormDoador() {
         } else if (formValues.address.cep.length !== 9) {
             newErros.address = { cep: "CEP deve ter exatamente 9 caracteres" };
             valid = false;
+        }else if (errorCep) {
+            newErros.address = { cep: "CEP inválido" };
+            valid = false;
+
         }
 
         if (!formValues.address.estado || formValues.address.estado.trim() === '') {

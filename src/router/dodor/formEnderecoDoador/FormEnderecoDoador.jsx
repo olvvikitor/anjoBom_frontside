@@ -56,6 +56,9 @@ function FormEnderecoDoador() {
 
     console.log("Estado atualizado:", endereco);
 
+    const [errorCep, setErrorCep] = useState(""); // Para o erro de CEP
+
+
     const formatCEP = (cep) => {
         const cleaned = ('' + cep).replace(/\D/g, '');
         const match = cleaned.match(/^(\d{5})(\d{3})$/);
@@ -92,12 +95,16 @@ function FormEnderecoDoador() {
                     },
                 }));
                 delete newErrors.cep;
+                setErrorCep('');
             } else {
                 newErrors.cep = "CEP inválido!";
+                setErrorCep('CEP inválido');
+
             }
         } catch (error) {
             console.error("Erro na chamada da API:", error);
             newErrors.cep = "Erro ao validar o CEP!";
+
         }
 
         setErrors(newErrors);
@@ -199,6 +206,8 @@ function FormEnderecoDoador() {
             newErrors.cep = "Máximo de 9 caracteres"
         } else if (cep.length < 9) {
             newErrors.cep = "Exatamente de 9 caracteres"
+        } else if (errorCep) {
+            newErrors.cep = 'CEP inválido!';
         }
         if (estado.length < 2) {
             newErrors.estado = "Exatamente de 2 caracteres"
