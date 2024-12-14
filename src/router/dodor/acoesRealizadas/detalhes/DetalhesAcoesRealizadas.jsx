@@ -1,4 +1,5 @@
 import React from "react";
+import { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom"; // Hook para capturar os dados passados
 import { Grid, GridRow, GridColumn, Image, ImageGroup, Icon } from "semantic-ui-react";
 import "./DetalhesAcoesRealizadas.css";
@@ -7,10 +8,36 @@ import Header from "../../../../components/Header";
 function DetalhesAcoesRealizada() {
     const { state } = useLocation(); // Pega os dados enviados pela navegação
     const { acao } = state || {}; // Extrai os dados do evento
+    const [validUrls, setValidUrls] = useState([]);
+
+    useEffect(() => {
+        if (acao?.photosUrl) {
+            const checkUrls = async () => {
+                const results = await Promise.all(
+                    acao.photosUrl.map(async (url) => {
+                        try {
+                            const response = await fetch(url, { method: "HEAD" }); // Verifica apenas os cabeçalhos
+                            if (response.ok) return url;
+                        } catch {
+                            return null;
+                        }
+                    })
+                );
+                setValidUrls(results.filter(Boolean)); // Remove URLs inválidos
+            };
+            checkUrls();
+        }
+    }, [acao]);
 
     if (!acao) {
-        return <h1>Evento não encontrado</h1>; // Fallback caso não haja dados
+        return <h1>Evento não encontrado</h1>;
+
     }
+
+    const handleImageError = (e) => {
+        e.target.style.display = "none"; // Oculta a imagem que falhou
+    };
+
 
     return (
         <>
@@ -36,13 +63,27 @@ function DetalhesAcoesRealizada() {
                             <h3>Descrição</h3>
                             <p><strong className="detalhes-endereco-strong">{acao.descricao}</strong></p>
                             <h3>Imagens</h3>
-                            <ImageGroup size="tiny">
+                            {/* <ImageGroup size="tiny">
                                 {acao.photosUrl.map((url, index) => (
                                     <Image key={index} src={url} />
                                 ))}
+                            </ImageGroup> */}
+                            {/* <ImageGroup size="tiny">
+                                {validUrls.map((url, index) => (
+                                    <Image key={index} src={url} />
+                                ))}
+                            </ImageGroup> */}
+                            <ImageGroup size="tiny">
+                                {acao.photosUrl.map((url, index) => (
+                                    <Image
+                                        key={index}
+                                        src={url}
+                                        onError={handleImageError} // Oculta a imagem se o carregamento falhar
+                                    />
+                                ))}
                             </ImageGroup>
                             <Link to="/acoesRealizadas">
-                                <Icon name="arrow left" className="icon-left-acoes-detalhes" size="large"/>
+                                <Icon name="arrow left" className="icon-left-acoes-detalhes" size="large" />
                             </Link>
                         </GridColumn>
                     </GridRow>
