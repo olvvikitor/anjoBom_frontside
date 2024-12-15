@@ -317,8 +317,8 @@ function FormDoador() {
         if (!formValues.phone || formValues.phone.trim() === '') {
             newErros.phone = "Telefone é obrigatório";
             valid = false;
-        } else if (formValues.phone.length < 14) {
-            newErros.phone = "Mínimo de 14 caracteres";
+        } else if (formValues.phone.length < 15) {
+            newErros.phone = "Mínimo de 15 caracteres";
             valid = false;
         } else if (formValues.phone.length > 15) {
             newErros.phone = "Máximo 15 caracteres";

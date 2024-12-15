@@ -18,8 +18,8 @@ import { useMediaQuery } from 'react-responsive';
 function Sobre() {
     useEffect(() => {
         window.scrollTo(0, 0); // Rola para o topo ao montar o componente
-      }, []);
-    
+    }, []);
+
 
     // Media query hooks
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
@@ -54,7 +54,7 @@ function Sobre() {
                             <div className="container-centered-text-sobre">
                                 <h1>Missão</h1>
                                 <p>
-                                    “Promover acolhimento e dignidade a pessoas carentes e em situação de rua por meio da entrega de alimentos prontos e doações de cestas básicas, oferecendo apoio e esperança para uma vida melhor.”
+                                    “Promover acolhimento e dignidade a pessoas em situação de vulnerabilidade social, fornecendo alimentos prontos e cestas básicas, além de oferecer apoio e inspiração para transformar suas vidas.”
                                 </p>
                             </div>
                         </Grid.Column>
@@ -123,7 +123,7 @@ function Sobre() {
                             <div className="container-centered-text-sobre">
                                 <h1>Visão</h1>
                                 <p>
-                                    “ Solidariedade: Compromisso genuíno em ajudar aqueles que estão em situação de necessidade, com empatia, respeito e senso de responsabilidade coletiva. Ela envolve a capacidade de colocar-se no lugar do outro, oferecendo suporte emocional e material sem julgamentos, mas com a intenção de promover o bem-estar e a dignidade humana.”
+                                    “Compromisso genuíno em ajudar aqueles que estão em situação de necessidade, com empatia, respeito e senso de responsabilidade coletiva. Ela envolve a capacidade de colocar-se no lugar do outro, oferecendo suporte emocional e material sem julgamentos, mas com a intenção de promover o bem-estar e a dignidade humana.”
                                 </p>
                             </div>
                         </Grid.Column>
