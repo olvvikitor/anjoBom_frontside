@@ -22,6 +22,10 @@ function TwoGridLayout() {
         };
 
         fetchEventos();
+
+        const interval = setInterval(fetchEventos, 5000); // Atualiza a cada 5 segundos
+
+        return () => clearInterval(interval); // Limpa o intervalo ao desmontar
     }, []);
 
     // Função para truncar a descrição

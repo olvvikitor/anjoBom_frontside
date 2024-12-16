@@ -25,6 +25,11 @@ const PontosColeta = () => {
         };
 
         fetchPontos();
+        
+        const interval = setInterval(fetchPontos, 5000); // Atualiza a cada 5 segundos
+
+        return () => clearInterval(interval); // Limpa o intervalo ao desmontar
+
     }, []);
 
     return (

@@ -77,6 +77,9 @@ function AreaPix() {
           );
         }
 
+        setSelectedValue(null);
+        setCustomValue("");
+
       } else {
         Swal.fire({
           icon: "error",

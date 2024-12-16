@@ -28,17 +28,36 @@ const CategoriaDoacaoPosDoacao = () => {
     //     console.log("fefe recebido:", dataFromForm);
     // }, [dataFromForm]);
 
-    const mostrarProdutosAll = async () => {
-        try {
-            const response = await axios.get('https://apianjobom.victordev.shop/produtos');
-            setProdutosParaDoacao(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar produtos:', error);
-        }
-    };
+    // const mostrarProdutosAll = async () => {
+    //     try {
+    //         const response = await axios.get('https://apianjobom.victordev.shop/produtos');
+    //         setProdutosParaDoacao(response.data);
+    //     } catch (error) {
+    //         console.error('Erro ao buscar produtos:', error);
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     mostrarProdutosAll();
+    // }, []);
+
 
     useEffect(() => {
+        const mostrarProdutosAll = async () => {
+            try {
+                const response = await axios.get('https://apianjobom.victordev.shop/produtos');
+                setProdutosParaDoacao(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar produtos:', error);
+            }
+        };
+
         mostrarProdutosAll();
+
+        const interval = setInterval(mostrarProdutosAll, 5000); // Atualiza a cada 5 segundos
+
+        return () => clearInterval(interval); // Limpa o intervalo ao desmontar
+
     }, []);
 
 
@@ -160,7 +179,7 @@ const CategoriaDoacaoPosDoacao = () => {
         // Verifica se há itens no carrinho
         if (!temItensNoCarrinho) {
             Swal.fire({
-                title: 'Carrinho vazio',
+                title: 'Cesta vazia',
                 text: 'Adicione alguma categoria antes de confirmar a doação.',
                 icon: 'info',
                 showConfirmButton: false,
@@ -220,11 +239,7 @@ const CategoriaDoacaoPosDoacao = () => {
 
     // Função para enviar a doação para a API
     const handleDoar = async () => {
-        if (!temItensNoCarrinho) {
-            alert("Adicione itens ao carrinho antes de doar.");
-            return;
-        }
-
+     
         console.log("vamos ver", itensCarrinho);
 
         const url = `https://apianjobom.victordev.shop/doador/doarProduto/CriarCesta/${idPersonValid}`;
@@ -387,7 +402,7 @@ const CategoriaDoacaoPosDoacao = () => {
                 }
 
                 <Button className="btn-doar" onClick={confirmarDoacao}>Doar</Button>
-            
+
             </div>
         </>
     );

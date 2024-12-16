@@ -22,18 +22,22 @@ const CategoriaDoacao = () => {
     // console.log("assim vem o endereco: ", endereco);
     console.log("ID do person recebido:", idPerson);
 
-
-    const mostrarProdutosAll = async () => {
-        try {
-            const response = await axios.get('https://apianjobom.victordev.shop/produtos');
-            setProdutosParaDoacao(response.data);
-        } catch (error) {
-            console.error('Erro ao buscar produtos:', error);
-        }
-    };
-
     useEffect(() => {
+        const mostrarProdutosAll = async () => {
+            try {
+                const response = await axios.get('https://apianjobom.victordev.shop/produtos');
+                setProdutosParaDoacao(response.data);
+            } catch (error) {
+                console.error('Erro ao buscar produtos:', error);
+            }
+        };
+    
         mostrarProdutosAll();
+        
+        const interval = setInterval(mostrarProdutosAll, 5000); // Atualiza a cada 5 segundos
+
+        return () => clearInterval(interval); // Limpa o intervalo ao desmontar
+
     }, []);
 
 
@@ -154,7 +158,7 @@ const CategoriaDoacao = () => {
         // Verifica se há itens no carrinho
         if (!temItensNoCarrinho) {
             Swal.fire({
-                title: 'Carrinho vazio',
+                title: 'Cesta vazia',
                 text: 'Adicione alguma categoria antes de confirmar a doação.',
                 icon: 'info',
                 showConfirmButton: false,
@@ -214,10 +218,10 @@ const CategoriaDoacao = () => {
 
     // Função para enviar a doação para a API
     const handleDoar = async () => {
-        if (!temItensNoCarrinho) {
-            alert("Adicione itens ao carrinho antes de doar.");
-            return;
-        }
+        // if (!temItensNoCarrinho) {
+        //     alert("Adicione itens ao carrinho antes de doar.");
+        //     return;
+        // }
 
         console.log("vamos ver", itensCarrinho);
 

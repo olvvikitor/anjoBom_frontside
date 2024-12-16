@@ -70,6 +70,9 @@ function QrCode() {
                     window.open(ticketUrl, "_blank");
                 }
 
+                setSelectedValue(null);
+                setCustomValue("");
+
             } else {
                 Swal.fire({
                     icon: "error",

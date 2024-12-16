@@ -15,18 +15,30 @@ function AcoesRealizadas() {
         window.scrollTo(0, 0); // Rola para o topo ao montar o componente
     }, []);
 
+    // useEffect(() => {
+    //     fetchEventos();
+
+
+    // }, []);
+
     useEffect(() => {
+        const fetchEventos = async () => {
+            try {
+                const response = await axios.get("https://apianjobom.victordev.shop/eventos");
+                setDadosAcoesRealizadas(response.data);
+            } catch (error) {
+                console.log("Erro ao buscar eventos: ", error);
+            }
+        };
+
         fetchEventos();
+
+        const interval = setInterval(fetchEventos, 5000); // Atualiza a cada 5 segundos
+
+        return () => clearInterval(interval); // Limpa o intervalo ao desmontar
+
     }, []);
 
-    const fetchEventos = async () => {
-        try {
-            const response = await axios.get("https://apianjobom.victordev.shop/eventos");
-            setDadosAcoesRealizadas(response.data);
-        } catch (error) {
-            console.log("Erro ao buscar eventos: ", error);
-        }
-    };
 
     const verMaisSobreAcaoRealizada = (acao) => {
         // Navegar para a página de detalhes com os dados do evento
