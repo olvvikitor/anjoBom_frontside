@@ -240,7 +240,7 @@ const CategoriaDoacao = () => {
             console.log("Doação realizada com sucesso:", response.data);
             Swal.fire({
                 title: 'Sucesso!',
-                text: 'Doação realizada com sucesso!',
+                text: 'Doação realizada com sucesso! Anjo Bom entrará em contato pelo WhatsApp',
                 icon: 'success',
                 timer: 3000,
                 showConfirmButton: false,
