@@ -9,6 +9,8 @@ function App() {
 
   // Verifica se a rota atual é a rota inicial ("/")
   const isInitialPage = location.pathname === "/"; 
+  const isExcludedFooterPage = ["/pontosColeta", "/acoesRealizadas"].includes(pathname);
+
 
   useEffect(() => {
     window.scrollTo(0, 0); // Rolagem para o topo ao mudar de rota
@@ -19,7 +21,9 @@ function App() {
       {/* Renderiza a Navbar somente se NÃO estiver na página inicial */}
       {!isInitialPage && <Navbar />}
       <Outlet />
-      <Footer />
+       {/* Renderiza o Footer somente se NÃO estiver nas páginas excluídas */}
+       {!isExcludedFooterPage && <Footer />}
+      {/* <Footer /> */}
     </>
   );
 }

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Grid, GridRow, GridColumn, Image, Button } from "semantic-ui-react";
+import { Grid, GridRow, GridColumn, Image, Button, Container, Icon } from "semantic-ui-react";
 import { useNavigate } from "react-router-dom"; // Importa o hook de navegação
 import axios from "axios";
 import "./AcoesRealizadas.css";
 import Header from "../../../components/Header";
+import logo from "../../../assets/logo.png"
 
 function AcoesRealizadas() {
 
@@ -17,8 +18,6 @@ function AcoesRealizadas() {
 
     // useEffect(() => {
     //     fetchEventos();
-
-
     // }, []);
 
     useEffect(() => {
@@ -74,7 +73,7 @@ function AcoesRealizadas() {
                             <GridColumn className="column-all-acoes-realizadas-image" computer={4} mobile={16}>
                                 <Image
                                     centered
-                                    src={acao.photosUrl && acao.photosUrl.length > 0 ? acao.photosUrl[0] : "fallback_image.jpg"}
+                                    src={acao.photosUrl && acao.photosUrl.length > 0 ? acao.photosUrl[0] : {logo}}
                                     size="medium"
                                 />
                             </GridColumn>
@@ -102,6 +101,27 @@ function AcoesRealizadas() {
                     </Button>
                 </div>
             )}
+            <div className="footer-acoesRealizadas">
+                <Container>
+                    <Grid stackable columns={16} verticalAlign="middle">
+                        <Grid.Column className="footer-image" width={4}>
+                            <Image src={logo} size='small' centered />
+                        </Grid.Column>
+                        <Grid.Column className="footer-text" width={8}>
+                            <p>Rua Juá, n° 264 - Bosque da Saúde - São Paulo - SP - Cep:04138-020</p>
+                            <p>Informações sobre agendamento de doações: 4003 2299</p>
+                            <p>Informações sobre demais assuntos: (11) 5591 7074 (não atende aos fins de semana)</p>
+                            <p>2024 - Assistência e Promoção Social Anjo Bom</p>
+                            <p>Política de Cookies | Política de Privacidade</p>
+                        </Grid.Column>
+                        <Grid.Column className="footer-icons" width={4} textAlign="right">
+                            <Icon name="facebook" size="large" />
+                            <Icon name="twitter" size="large" />
+                            <Icon name="instagram" size="large" />
+                        </Grid.Column>
+                    </Grid>
+                </Container>
+            </div>
         </>
     );
 }

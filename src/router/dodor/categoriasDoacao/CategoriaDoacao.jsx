@@ -266,7 +266,7 @@ const CategoriaDoacao = () => {
             <Headers title1={"Agende sua"} title2={"Doação"} />
             <div className="container-caregoria-doacao">
                 <h1 className="title">Categorias</h1>
-                {!todosProdutosParaDoacao.length ? <h1 className="title">Vzio</h1> :
+                {!todosProdutosParaDoacao.length ? <h1 className="title">Carregando...</h1> :
 
                     <Grid container stackable columns={3} doubling>
                         <Grid.Column>

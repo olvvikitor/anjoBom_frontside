@@ -3,16 +3,14 @@
 }
 
 .pontos-column {
-    margin: 3.5rem 0px;
-    
+    margin: 7rem 0px;
+
 }
 
 .pontos-segment {
     background-color: #ffffff !important;
     border: 5px solid #005C98 !important;
     padding: 15px;
-    margin-top: 30px !important;
-    margin-bottom: 25px !important;
     margin-left: 20px !important;
     margin-right: 20px !important;
     border-radius: 9px !important;
@@ -101,6 +99,57 @@
     font-size: 24px;
 }
 
+/* footer */
+
+.footer-pontoColeta {
+    background-color: #10324B;
+    padding: 20px 0;
+    margin-top: 7em; 
+    color: white;
+
+}
+
+.footer-image img {
+    max-width: 100px;
+}
+
+.footer-text p {
+    color: #fff;
+    margin: 4px 0;
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: start;
+}
+
+.footer-icons .icon {
+    margin-left: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.footer-icons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+    .footer-text {
+        text-align: center !important;
+    }
+
+    .footer-icons {
+        text-align: center !important;
+        justify-content: center !important;
+    }
+
+    .footer-image {
+        text-align: center !important;
+    }
+}
+
+
 
 @media only screen and (max-width: 768px) and (max-width: 991px) {
 
@@ -108,14 +157,14 @@
         text-align: start;
 
     }
-    
+
     .pontos-image-p {
         text-decoration: none;
         color: #080909;
         font-weight: 500;
         font-size: medium;
     }
-    
+
 
 
 
