@@ -26,7 +26,7 @@ import "semantic-ui-css/semantic.min.css";
 import img from "../../../assets/img.jpg";
 import logo from "../../../assets/logo.png";
 import Breve from "../../../assets/breve.png";
-import "../initial/initial.css";
+import "./Initial.css";
 import AreaPix from "../../../components/AreaPix";
 import QrCode from "../../../components/QrCode";
 import NoQrCode from "../../../components/NoQrCode";
