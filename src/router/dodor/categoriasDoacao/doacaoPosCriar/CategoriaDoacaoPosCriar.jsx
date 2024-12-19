@@ -239,7 +239,7 @@ const CategoriaDoacaoPosDoacao = () => {
 
     // Função para enviar a doação para a API
     const handleDoar = async () => {
-     
+
         console.log("vamos ver", itensCarrinho);
 
         const url = `https://apianjobom.victordev.shop/doador/doarProduto/CriarCesta/${idPersonValid}`;
@@ -400,6 +400,21 @@ const CategoriaDoacaoPosDoacao = () => {
                         </Grid.Column>
                     </Grid>
                 }
+
+                <div class="container-legenda">
+                    <div class="item-legenda">
+                        <div class="circle-legenda yellow-legenda"></div>
+                        <p>Baixa</p>
+                    </div>
+                    <div class="item-legenda">
+                        <div class="circle-legenda green-legenda"></div>
+                        <p>Média</p>
+                    </div>
+                    <div class="item-legenda">
+                        <div class="circle-legenda red-legenda"></div>
+                        <p>Alta</p>
+                    </div>
+                </div>
 
                 <Button className="btn-doar" onClick={confirmarDoacao}>Doar</Button>
 

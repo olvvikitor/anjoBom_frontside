@@ -31,9 +31,9 @@ const CategoriaDoacao = () => {
                 console.error('Erro ao buscar produtos:', error);
             }
         };
-    
+
         mostrarProdutosAll();
-        
+
         const interval = setInterval(mostrarProdutosAll, 5000); // Atualiza a cada 5 segundos
 
         return () => clearInterval(interval); // Limpa o intervalo ao desmontar
@@ -382,9 +382,24 @@ const CategoriaDoacao = () => {
                                 </Card.Content>
                             </Card>
                         </Grid.Column>
+
                     </Grid>
                 }
 
+                <div class="container-legenda">
+                    <div class="item-legenda">
+                        <div class="circle-legenda yellow-legenda"></div>
+                        <p>Baixa</p>
+                    </div>
+                    <div class="item-legenda">
+                        <div class="circle-legenda green-legenda"></div>
+                        <p>Média</p>
+                    </div>
+                    <div class="item-legenda">
+                        <div class="circle-legenda red-legenda"></div>
+                        <p>Alta</p>
+                    </div>
+                </div>
                 <Button className="btn-doar" onClick={confirmarDoacao}>Doar</Button>
 
             </div>
